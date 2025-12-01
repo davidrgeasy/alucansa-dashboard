@@ -13,7 +13,8 @@ import {
   ProblemStatus, 
   InternalPriority,
   FollowUp,
-  FollowUpType 
+  FollowUpType,
+  CustomCost
 } from '@/types/tracking';
 
 interface TrackingStore {
@@ -34,6 +35,9 @@ interface TrackingStore {
     targetDate?: string | null;
     completedDate?: string | null;
   }) => void;
+  
+  // Coste personalizado
+  setCustomCost: (problemId: string, cost: CustomCost | null) => void;
   
   // Seguimientos
   addFollowUp: (problemId: string, followUp: Omit<FollowUp, 'id' | 'problemId' | 'createdAt'>) => void;
@@ -62,6 +66,7 @@ function createInitialTracking(problemId: string): ProblemTracking {
     completedDate: null,
     progress: 0,
     followUps: [],
+    customCost: null,
     lastUpdated: now,
     createdAt: now,
   };
@@ -197,6 +202,23 @@ export const useTracking = create<TrackingStore>()(
                 ...(dates.startDate !== undefined && { startDate: dates.startDate }),
                 ...(dates.targetDate !== undefined && { targetDate: dates.targetDate }),
                 ...(dates.completedDate !== undefined && { completedDate: dates.completedDate }),
+                lastUpdated: new Date().toISOString(),
+              },
+            },
+          };
+        });
+      },
+      
+      // Actualizar coste personalizado
+      setCustomCost: (problemId, cost) => {
+        set((state) => {
+          const existing = state.trackingData[problemId] || createInitialTracking(problemId);
+          return {
+            trackingData: {
+              ...state.trackingData,
+              [problemId]: {
+                ...existing,
+                customCost: cost,
                 lastUpdated: new Date().toISOString(),
               },
             },

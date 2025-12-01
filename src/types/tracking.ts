@@ -49,6 +49,15 @@ export interface FollowUp {
 }
 
 /**
+ * Coste personalizado por el cliente
+ */
+export interface CustomCost {
+  minimo: number;
+  maximo: number;
+  notas?: string;  // Notas explicativas del cliente
+}
+
+/**
  * Datos de tracking de un problema
  */
 export interface ProblemTracking {
@@ -61,6 +70,7 @@ export interface ProblemTracking {
   completedDate: string | null;  // ISO date string
   progress: number;              // 0-100
   followUps: FollowUp[];
+  customCost: CustomCost | null; // Coste personalizado por el cliente
   lastUpdated: string;           // ISO date string
   createdAt: string;             // ISO date string
 }

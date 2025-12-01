@@ -10,4 +10,5 @@ export { DateInput } from './DateInput';
 export { FollowUpForm } from './FollowUpForm';
 export { FollowUpTimeline } from './FollowUpTimeline';
 export { TrackingPanel } from './TrackingPanel';
+export { CostEditor } from './CostEditor';
 

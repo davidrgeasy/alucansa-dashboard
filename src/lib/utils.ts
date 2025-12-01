@@ -144,3 +144,35 @@ export function cn(...classes: (string | undefined | null | false)[]): string {
   return classes.filter(Boolean).join(' ');
 }
 
+/**
+ * Calcula el ROI ajustado basándose en el coste personalizado
+ * Fórmula: ROI ajustado = ROI original * (coste original / coste personalizado)
+ * Si el coste baja, el ROI sube proporcionalmente
+ */
+export function calculateAdjustedROI(
+  originalRoi: { minimo: number; maximo: number },
+  originalCost: { minimo: number; maximo: number },
+  customCost: { minimo: number; maximo: number } | null
+): { minimo: number; maximo: number; isAdjusted: boolean } {
+  if (!customCost) {
+    return { ...originalRoi, isAdjusted: false };
+  }
+
+  // Calcular el factor de ajuste basado en el promedio de costes
+  const avgOriginalCost = (originalCost.minimo + originalCost.maximo) / 2;
+  const avgCustomCost = (customCost.minimo + customCost.maximo) / 2;
+  
+  // Evitar división por cero
+  if (avgCustomCost === 0) {
+    return { minimo: 999, maximo: 999, isAdjusted: true };
+  }
+
+  const factor = avgOriginalCost / avgCustomCost;
+  
+  return {
+    minimo: Math.round(originalRoi.minimo * factor),
+    maximo: Math.round(originalRoi.maximo * factor),
+    isAdjusted: true,
+  };
+}
+
