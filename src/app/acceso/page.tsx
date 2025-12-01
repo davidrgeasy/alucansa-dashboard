@@ -44,7 +44,7 @@ export default function AccessCodePage() {
   // Focus en el primer input al cargar
   useEffect(() => {
     inputRefs[0].current?.focus();
-  }, []);
+  }, [inputRefs]);
 
   const handleInputChange = (index: number, value: string) => {
     // Solo permitir números
