@@ -7,9 +7,10 @@ interface CardProps {
   className?: string;
   hover?: boolean;
   onClick?: () => void;
+  style?: React.CSSProperties;
 }
 
-export function Card({ children, className, hover = false, onClick }: CardProps) {
+export function Card({ children, className, hover = false, onClick, style }: CardProps) {
   return (
     <div
       className={cn(
@@ -19,6 +20,7 @@ export function Card({ children, className, hover = false, onClick }: CardProps)
         className
       )}
       onClick={onClick}
+      style={style}
     >
       {children}
     </div>

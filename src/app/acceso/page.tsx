@@ -13,8 +13,8 @@ import {
   ShieldCheck
 } from 'lucide-react';
 
-// Código de acceso (puedes cambiarlo)
-const ACCESS_CODE = '2024';
+// Código de acceso desde variable de entorno
+const ACCESS_CODE = process.env.NEXT_PUBLIC_ACCESS_CODE || '0000';
 
 export default function AccessCodePage() {
   const router = useRouter();

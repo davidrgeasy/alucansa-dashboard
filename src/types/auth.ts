@@ -65,29 +65,36 @@ export const ROLE_CONFIG: Record<UserRole, RoleConfig> = {
 };
 
 /**
- * Usuarios demo para pruebas (en producción vendrían de una API)
+ * Parsea los usuarios desde la variable de entorno
+ * Formato: email:password:name:role,email:password:name:role,...
  */
-export const DEMO_USERS: Array<User & { password: string }> = [
-  {
-    id: 'admin-1',
-    name: 'Consultor Admin',
-    email: 'admin@consultoria.com',
-    password: 'admin123',
-    role: 'admin',
-  },
-  {
-    id: 'dir-1',
-    name: 'Director ALUCANSA',
-    email: 'direccion@alucansa.com',
-    password: 'direccion123',
-    role: 'direccion',
-  },
-  {
-    id: 'user-1',
-    name: 'Usuario Operativo',
-    email: 'usuario@alucansa.com',
-    password: 'usuario123',
-    role: 'usuario',
-  },
-];
+function parseUsersFromEnv(): Array<User & { password: string }> {
+  const envUsers = process.env.NEXT_PUBLIC_DEMO_USERS || '';
+  
+  if (!envUsers) {
+    // Usuarios por defecto si no hay variable de entorno
+    console.warn('⚠️ NEXT_PUBLIC_DEMO_USERS no configurado. Usando usuarios por defecto.');
+    return [
+      { id: 'admin-1', name: 'Admin', email: 'admin@demo.com', password: 'demo', role: 'admin' },
+      { id: 'dir-1', name: 'Dirección', email: 'dir@demo.com', password: 'demo', role: 'direccion' },
+      { id: 'user-1', name: 'Usuario', email: 'user@demo.com', password: 'demo', role: 'usuario' },
+    ];
+  }
+
+  return envUsers.split(',').map((userStr, index) => {
+    const [email, password, name, role] = userStr.split(':');
+    return {
+      id: `user-${index + 1}`,
+      email: email?.trim() || '',
+      password: password?.trim() || '',
+      name: name?.trim() || '',
+      role: (role?.trim() as UserRole) || 'usuario',
+    };
+  });
+}
+
+/**
+ * Usuarios demo para pruebas (configurados vía variables de entorno)
+ */
+export const DEMO_USERS: Array<User & { password: string }> = parseUsersFromEnv();
 
