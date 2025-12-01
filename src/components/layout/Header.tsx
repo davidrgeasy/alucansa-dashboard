@@ -2,6 +2,7 @@
 
 import { Menu, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { UserMenu } from '@/components/auth';
 
 interface HeaderProps {
   title: string;
@@ -41,12 +42,13 @@ export function Header({ title, subtitle, isSidebarOpen, onToggleSidebar }: Head
             </div>
           </div>
 
-          {/* Indicador de estado o acciones adicionales */}
+          {/* Usuario y acciones */}
           <div className="flex items-center gap-3">
-            <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-emerald-50 text-emerald-700 rounded-full text-sm">
+            <div className="hidden md:flex items-center gap-2 px-3 py-1.5 bg-emerald-50 text-emerald-700 rounded-full text-sm">
               <span className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
               Datos actualizados
             </div>
+            <UserMenu />
           </div>
         </div>
       </div>

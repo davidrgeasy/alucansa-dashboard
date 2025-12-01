@@ -10,7 +10,8 @@ import {
   Calendar, 
   Building2,
   ChevronRight,
-  Factory
+  Factory,
+  Activity
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -20,19 +21,11 @@ interface SidebarProps {
 
 export function Sidebar({ isOpen = true, onClose }: SidebarProps) {
   const pathname = usePathname();
-  const { areaId, setAreaId } = useFilters();
-
-  const handleAreaClick = (id: string) => {
-    // Si ya está seleccionada, deseleccionar
-    if (areaId === id) {
-      setAreaId(null);
-    } else {
-      setAreaId(id);
-    }
-  };
+  const { areaId } = useFilters();
 
   const navItems = [
     { href: '/', label: 'Dashboard', icon: LayoutDashboard },
+    { href: '/seguimiento', label: 'Seguimiento', icon: Activity },
     { href: '/roadmap', label: 'Roadmap', icon: Calendar },
   ];
 
@@ -106,17 +99,20 @@ export function Sidebar({ isOpen = true, onClose }: SidebarProps) {
           </h2>
           <ul className="space-y-1">
             {areas.map((area) => {
-              const isSelected = areaId === area.id;
+              const isSelected = pathname === `/areas/${area.id}`;
+              const isFiltered = areaId === area.id;
               
               return (
                 <li key={area.id}>
-                  <button
-                    onClick={() => handleAreaClick(area.id)}
+                  <Link
+                    href={`/areas/${area.id}`}
                     className={cn(
                       'w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 text-left',
                       isSelected 
                         ? 'bg-accent-500 text-white' 
-                        : 'text-primary-200 hover:bg-primary-800/50 hover:text-white'
+                        : isFiltered
+                          ? 'bg-primary-700 text-white'
+                          : 'text-primary-200 hover:bg-primary-800/50 hover:text-white'
                     )}
                   >
                     <Building2 className="w-5 h-5 flex-shrink-0" />
@@ -126,7 +122,7 @@ export function Sidebar({ isOpen = true, onClose }: SidebarProps) {
                     </div>
                     <div className={cn(
                       'flex items-center justify-center w-6 h-6 rounded-full text-xs font-bold',
-                      isSelected 
+                      isSelected || isFiltered
                         ? 'bg-white/20 text-white' 
                         : 'bg-primary-800 text-primary-300'
                     )}>
@@ -136,7 +132,7 @@ export function Sidebar({ isOpen = true, onClose }: SidebarProps) {
                       'w-4 h-4 transition-transform duration-200',
                       isSelected ? 'rotate-90' : ''
                     )} />
-                  </button>
+                  </Link>
                 </li>
               );
             })}

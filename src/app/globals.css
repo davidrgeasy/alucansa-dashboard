@@ -126,3 +126,59 @@ body {
   outline-offset: 2px;
 }
 
+/* ================================
+   ESTILOS PARA EXPORTACIÓN PDF
+   ================================ */
+
+/* Clase para elementos que no deben aparecer en la exportación */
+.no-print {
+  /* Los estilos normales se aplican */
+}
+
+/* Cuando se está exportando */
+.exporting-pdf {
+  /* Forzar fondos blancos y bordes visibles */
+}
+
+.exporting-pdf .no-print {
+  display: none !important;
+}
+
+/* Estilos específicos para cuando se exporta */
+.exporting-pdf .animate-fade-in,
+.exporting-pdf .animate-slide-in-left,
+.exporting-pdf .animate-scale-in {
+  animation: none !important;
+  opacity: 1 !important;
+}
+
+/* Asegurar que los colores se vean bien en PDF */
+.exporting-pdf * {
+  -webkit-print-color-adjust: exact !important;
+  print-color-adjust: exact !important;
+}
+
+/* Evitar cortes en elementos durante la exportación */
+.exporting-pdf .page-break-avoid {
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+
+/* Media query para impresión nativa del navegador */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  body {
+    background: white !important;
+  }
+  
+  .animate-fade-in,
+  .animate-slide-in-left,
+  .animate-scale-in {
+    animation: none !important;
+    opacity: 1 !important;
+  }
+}
+

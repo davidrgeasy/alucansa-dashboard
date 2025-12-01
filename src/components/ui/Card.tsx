@@ -33,9 +33,9 @@ export function CardHeader({ children, className }: { children: React.ReactNode;
   );
 }
 
-export function CardContent({ children, className }: { children: React.ReactNode; className?: string }) {
+export function CardContent({ children, className, allowOverflow = false }: { children: React.ReactNode; className?: string; allowOverflow?: boolean }) {
   return (
-    <div className={cn('px-5 py-4', className)}>
+    <div className={cn('px-5 py-4', allowOverflow && 'overflow-visible', className)}>
       {children}
     </div>
   );

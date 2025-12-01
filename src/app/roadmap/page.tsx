@@ -1,10 +1,12 @@
 'use client';
 
-import { useMemo } from 'react';
+import { useMemo, useRef } from 'react';
 import Link from 'next/link';
 import { DashboardLayout } from '@/components/layout/DashboardLayout';
 import { Card, CardContent, CardHeader } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
+import { ExportButton } from '@/components/ui/ExportButton';
+import { RoadmapReport } from '@/components/export';
 import { getAllProblems, getAreaById } from '@/data/problems';
 import { Problem, HorizonteTemporal } from '@/types';
 import { 
@@ -114,11 +116,35 @@ export default function RoadmapPage() {
     bajo: 'bajo' as const,
   };
 
+  // Ref para exportación PDF (informe)
+  const reportRef = useRef<HTMLDivElement>(null);
+
   return (
     <DashboardLayout
       title="Roadmap de Implementación"
       subtitle="Cronograma de mejoras por horizonte temporal"
     >
+      {/* Botón de exportación */}
+      <div className="flex justify-end mb-6 no-print">
+        <ExportButton
+          targetRef={reportRef}
+          options={{
+            filename: 'informe-roadmap-alucansa',
+            title: '',
+            subtitle: '',
+            orientation: 'portrait',
+          }}
+          label="Exportar Informe"
+        />
+      </div>
+
+      {/* Informe oculto para exportación PDF */}
+      <div className="fixed left-[-9999px] top-0">
+        <div ref={reportRef}>
+          <RoadmapReport problems={allProblems} />
+        </div>
+      </div>
+
       <div className="space-y-8">
         {/* Resumen visual del timeline */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 animate-fade-in">

@@ -27,6 +27,7 @@ export interface Coste {
 export interface ROI {
   minimo: number;
   maximo: number;
+  justificacion: string;
 }
 
 export interface Problem {
@@ -76,10 +77,10 @@ const area1: Area = {
   prioridad: "alto",
   resumen: {
     numProblemas: 5,
-    inversionMin: 15000,
-    inversionMax: 40000,
-    ahorroMin: 25000,
-    ahorroMax: 90000
+    inversionMin: 11000,
+    inversionMax: 29000,
+    ahorroMin: 35000,
+    ahorroMax: 120000
   },
   problemas: [
     {
@@ -108,13 +109,14 @@ const area1: Area = {
         "Revisar trimestralmente avances y bloqueos con la Dirección"
       ],
       coste: {
-        minimo: 8000,
-        maximo: 20000,
+        minimo: 3000,
+        maximo: 8000,
         moneda: "EUR"
       },
       roi: {
-        minimo: 30,
-        maximo: 150
+        minimo: 150,
+        maximo: 400,
+        justificacion: "Ahorro estimado de 15-25h/semana en resolución de incidencias y duplicidades. Una persona con visión transversal evita retrabajos y errores que hoy cuestan ~€500-1.000/semana entre tiempo perdido, urgencias y decisiones mal informadas."
       },
       dependencias: [],
       tags: ["gobierno del dato", "procesos", "organización"]
@@ -145,13 +147,14 @@ const area1: Area = {
         "Implantar un ciclo de revisión anual de procesos"
       ],
       coste: {
-        minimo: 4000,
-        maximo: 12000,
+        minimo: 2000,
+        maximo: 5000,
         moneda: "EUR"
       },
       roi: {
-        minimo: 25,
-        maximo: 100
+        minimo: 100,
+        maximo: 300,
+        justificacion: "Reducción del tiempo de formación de nuevos empleados (~40%), menor dependencia de personas clave (riesgo valorado en ~€15.000/año) y eliminación de errores por desconocimiento de procedimientos (~5h/semana)."
       },
       dependencias: ["ORG-1"],
       tags: ["procedimientos", "documentación", "conocimiento"]
@@ -182,13 +185,14 @@ const area1: Area = {
         "Ajustar definición y fuentes de datos según se detecten incoherencias"
       ],
       coste: {
-        minimo: 6000,
-        maximo: 18000,
+        minimo: 3000,
+        maximo: 8000,
         moneda: "EUR"
       },
       roi: {
-        minimo: 30,
-        maximo: 120
+        minimo: 120,
+        maximo: 350,
+        justificacion: "Mejora en la toma de decisiones que puede evitar ~2-3% de pérdidas por malas decisiones de precio, stock o producción. En una facturación de 3-5M€ representa €60.000-150.000/año de impacto potencial."
       },
       dependencias: ["ORG-1"],
       tags: ["kpi", "cuadro de mando", "dato"]
@@ -219,13 +223,14 @@ const area1: Area = {
         "Revisar trimestralmente si las reuniones aportan valor o deben ajustarse"
       ],
       coste: {
-        minimo: 2000,
-        maximo: 6000,
+        minimo: 1000,
+        maximo: 3000,
         moneda: "EUR"
       },
       roi: {
-        minimo: 20,
-        maximo: 80
+        minimo: 80,
+        maximo: 200,
+        justificacion: "Ahorro de ~3-5h/semana en reuniones improductivas y repetición de información. Reducción de malentendidos que generan errores (~€200-400/mes). Mejor alineación reduce fricciones y urgencias."
       },
       dependencias: [],
       tags: ["comunicación interna", "reuniones", "gobernanza"]
@@ -256,13 +261,14 @@ const area1: Area = {
         "Revisar tras 6 meses si la separación de funciones ha reducido fricciones"
       ],
       coste: {
-        minimo: 5000,
-        maximo: 14000,
+        minimo: 2000,
+        maximo: 5000,
         moneda: "EUR"
       },
       roi: {
-        minimo: 25,
-        maximo: 90
+        minimo: 100,
+        maximo: 250,
+        justificacion: "Liberación del 30-40% del tiempo del perfil técnico para tareas de su competencia real. Reducción de frustraciones y rotación (coste de sustitución ~€8.000-15.000). Mejor rendimiento de proyectos tecnológicos."
       },
       dependencias: ["ORG-1", "ORG-2"],
       tags: ["roles", "tecnologia", "procesos"]
@@ -282,10 +288,10 @@ const area2: Area = {
   prioridad: "alto",
   resumen: {
     numProblemas: 5,
-    inversionMin: 20000,
-    inversionMax: 60000,
-    ahorroMin: 40000,
-    ahorroMax: 150000
+    inversionMin: 13500,
+    inversionMax: 33000,
+    ahorroMin: 55000,
+    ahorroMax: 180000
   },
   problemas: [
     {
@@ -314,13 +320,14 @@ const area2: Area = {
         "Medir y seguir mensualmente el nivel de ajuste stock físico/digital"
       ],
       coste: {
-        minimo: 8000,
-        maximo: 22000,
+        minimo: 4000,
+        maximo: 10000,
         moneda: "EUR"
       },
       roi: {
-        minimo: 40,
-        maximo: 150
+        minimo: 180,
+        maximo: 450,
+        justificacion: "Reducción del stock de seguridad innecesario (~10-15% del valor de inventario). Eliminación de roturas de stock y urgencias (~€500-1.500/mes). Ahorro en tiempo de comprobaciones físicas (~10h/semana)."
       },
       dependencias: ["ORG-1"],
       tags: ["stock", "inventario", "logística"]
@@ -351,13 +358,14 @@ const area2: Area = {
         "Revisar incidencias y ajustar el flujo tras los primeros meses"
       ],
       coste: {
-        minimo: 6000,
-        maximo: 15000,
+        minimo: 2500,
+        maximo: 6000,
         moneda: "EUR"
       },
       roi: {
-        minimo: 30,
-        maximo: 110
+        minimo: 120,
+        maximo: 320,
+        justificacion: "Ahorro de ~8-12h/semana en gestión manual de pedidos entre sedes. Reducción de errores en pedidos internos (~€300-600/mes). Mejor trazabilidad reduce pérdidas y reclamaciones internas."
       },
       dependencias: ["ALM-1"],
       tags: ["pedidos internos", "multi-almacén", "trazabilidad"]
@@ -388,13 +396,14 @@ const area2: Area = {
         "Formar al personal de almacén e incluir ubicaciones en los documentos de trabajo"
       ],
       coste: {
-        minimo: 7000,
-        maximo: 18000,
+        minimo: 3000,
+        maximo: 7000,
         moneda: "EUR"
       },
       roi: {
-        minimo: 25,
-        maximo: 90
+        minimo: 100,
+        maximo: 280,
+        justificacion: "Reducción del tiempo de preparación de pedidos (~20-30%). Cualquier operario puede localizar material sin depender de expertos. Menos errores de picking (~€200-500/mes en devoluciones/correcciones)."
       },
       dependencias: ["ALM-1"],
       tags: ["ubicaciones", "etiquetado", "almacén"]
@@ -425,13 +434,14 @@ const area2: Area = {
         "Medir la reducción de llamadas tras la implantación"
       ],
       coste: {
-        minimo: 5000,
-        maximo: 16000,
+        minimo: 2000,
+        maximo: 5000,
         moneda: "EUR"
       },
       roi: {
-        minimo: 30,
-        maximo: 120
+        minimo: 150,
+        maximo: 380,
+        justificacion: "Reducción drástica de llamadas internas (~60-80%, estimado 200+ llamadas/mes). Ahorro de ~15-20h/semana en interrupciones. Personal puede consultar estados sin depender de otros, mejorando productividad general."
       },
       dependencias: ["ALM-1", "ALM-2"],
       tags: ["comunicación", "operaciones", "paneles"]
@@ -462,13 +472,14 @@ const area2: Area = {
         "Utilizar los datos para priorizar mejoras de proceso"
       ],
       coste: {
-        minimo: 4000,
-        maximo: 12000,
+        minimo: 2000,
+        maximo: 5000,
         moneda: "EUR"
       },
       roi: {
-        minimo: 20,
-        maximo: 80
+        minimo: 90,
+        maximo: 220,
+        justificacion: "Visibilidad sobre problemas permite actuar antes de perder clientes. Mejora del nivel de servicio retiene clientes (~€5.000-15.000/cliente/año). Datos objetivos para negociar con proveedores de transporte."
       },
       dependencias: ["ALM-1", "ALM-2"],
       tags: ["kpi", "logística", "servicio"]
@@ -488,10 +499,10 @@ const area3: Area = {
   prioridad: "alto",
   resumen: {
     numProblemas: 5,
-    inversionMin: 15000,
-    inversionMax: 45000,
-    ahorroMin: 30000,
-    ahorroMax: 120000
+    inversionMin: 13500,
+    inversionMax: 34000,
+    ahorroMin: 50000,
+    ahorroMax: 160000
   },
   problemas: [
     {
@@ -520,13 +531,14 @@ const area3: Area = {
         "Formar al equipo en el sistema objetivo y acompañar durante la adaptación"
       ],
       coste: {
-        minimo: 8000,
-        maximo: 22000,
+        minimo: 3500,
+        maximo: 9000,
         moneda: "EUR"
       },
       roi: {
-        minimo: 30,
-        maximo: 120
+        minimo: 130,
+        maximo: 350,
+        justificacion: "Eliminación de duplicidades ahorra ~10-15h/semana. Un solo sistema de referencia reduce errores de cuadre (~€500-1.000/mes). Menor coste de mantenimiento de múltiples herramientas (~€2.000-4.000/año)."
       },
       dependencias: ["ORG-1"],
       tags: ["contabilidad", "facturación", "sistemas"]
@@ -557,13 +569,14 @@ const area3: Area = {
         "Medir la reducción de tiempo dedicado a esta tarea"
       ],
       coste: {
-        minimo: 5000,
-        maximo: 15000,
+        minimo: 2000,
+        maximo: 5000,
         moneda: "EUR"
       },
       roi: {
-        minimo: 30,
-        maximo: 100
+        minimo: 150,
+        maximo: 400,
+        justificacion: "La conciliación automática reduce el tiempo de ~20h/mes a ~3-4h/mes. Menos errores de aplicación de cobros (~€300-600/mes en incidencias). Personal administrativo liberado para tareas de mayor valor."
       },
       dependencias: ["ADM-1"],
       tags: ["conciliación", "banca", "automatización"]
@@ -594,13 +607,14 @@ const area3: Area = {
         "Medir tiempos antes y después para validar el ahorro real"
       ],
       coste: {
-        minimo: 7000,
-        maximo: 20000,
+        minimo: 3000,
+        maximo: 8000,
         moneda: "EUR"
       },
       roi: {
-        minimo: 25,
-        maximo: 90
+        minimo: 120,
+        maximo: 300,
+        justificacion: "OCR reduce tiempo de entrada de facturas de proveedores ~70-80% (~15-25h/mes). Menor tasa de errores de transcripción. Búsqueda de documentos instantánea vs. archivos físicos (~5h/mes ahorradas)."
       },
       dependencias: ["ADM-1"],
       tags: ["ocr", "documentos", "automatización"]
@@ -631,13 +645,14 @@ const area3: Area = {
         "Revisar cada trimestre si la información responde a las necesidades reales"
       ],
       coste: {
-        minimo: 6000,
-        maximo: 18000,
+        minimo: 2500,
+        maximo: 6000,
         moneda: "EUR"
       },
       roi: {
-        minimo: 20,
-        maximo: 80
+        minimo: 80,
+        maximo: 220,
+        justificacion: "Información financiera orientada a gestión permite identificar líneas/clientes no rentables (~1-2% de mejora de margen). Reducción de tiempo en preparar informes ad hoc (~8-10h/mes)."
       },
       dependencias: ["ORG-3", "ADM-1"],
       tags: ["reporting", "finanzas", "gestión"]
@@ -668,13 +683,14 @@ const area3: Area = {
         "Usar estos datos como base para decisiones comerciales y de precios"
       ],
       coste: {
-        minimo: 5000,
-        maximo: 16000,
+        minimo: 2500,
+        maximo: 6000,
         moneda: "EUR"
       },
       roi: {
-        minimo: 30,
-        maximo: 120
+        minimo: 200,
+        maximo: 500,
+        justificacion: "Detectar fugas de margen del 2-5% en líneas o clientes concretos representa €40.000-100.000/año en una empresa de este tamaño. Permite renegociar precios o eliminar productos/clientes no rentables."
       },
       dependencias: ["ADM-1", "ADM-4"],
       tags: ["margen", "análisis", "rentabilidad"]
@@ -694,10 +710,10 @@ const area4: Area = {
   prioridad: "medio",
   resumen: {
     numProblemas: 5,
-    inversionMin: 12000,
-    inversionMax: 35000,
-    ahorroMin: 20000,
-    ahorroMax: 90000
+    inversionMin: 10000,
+    inversionMax: 26000,
+    ahorroMin: 45000,
+    ahorroMax: 140000
   },
   problemas: [
     {
@@ -726,13 +742,14 @@ const area4: Area = {
         "Conectar el CRM, cuando sea posible, con el sistema de pedidos"
       ],
       coste: {
-        minimo: 6000,
-        maximo: 18000,
+        minimo: 3000,
+        maximo: 8000,
         moneda: "EUR"
       },
       roi: {
-        minimo: 30,
-        maximo: 120
+        minimo: 150,
+        maximo: 400,
+        justificacion: "Un CRM evita perder oportunidades (~5-10% más conversión). Retener 2-3 clientes/año que se habrían perdido representa €15.000-50.000. Ahorro de tiempo comercial en buscar información (~5h/semana)."
       },
       dependencias: ["ORG-3"],
       tags: ["crm", "clientes", "ventas"]
@@ -763,13 +780,14 @@ const area4: Area = {
         "Priorizar mejoras de proceso donde más se repiten incidencias"
       ],
       coste: {
-        minimo: 4000,
-        maximo: 12000,
+        minimo: 1500,
+        maximo: 4000,
         moneda: "EUR"
       },
       roi: {
-        minimo: 25,
-        maximo: 90
+        minimo: 100,
+        maximo: 280,
+        justificacion: "Gestión estructurada de incidencias reduce tiempo de resolución (~40%). Identificar causas raíz evita repetición (~€400-800/mes en costes de re-envíos, descuentos, etc.). Mejora satisfacción cliente."
       },
       dependencias: ["VEN-1"],
       tags: ["incidencias", "servicio", "clientes"]
@@ -800,13 +818,14 @@ const area4: Area = {
         "Medir recuperación o pérdida definitiva tras estas acciones"
       ],
       coste: {
-        minimo: 5000,
-        maximo: 15000,
+        minimo: 2000,
+        maximo: 5000,
         moneda: "EUR"
       },
       roi: {
-        minimo: 30,
-        maximo: 130
+        minimo: 200,
+        maximo: 600,
+        justificacion: "Captar un cliente nuevo cuesta 5-7x más que retener uno existente. Detectar y recuperar 3-5 clientes en riesgo/año representa €30.000-80.000 en facturación salvada. El coste de análisis es mínimo."
       },
       dependencias: ["ADM-5", "VEN-1"],
       tags: ["fuga de clientes", "análisis", "ventas"]
@@ -837,13 +856,14 @@ const area4: Area = {
         "Revisar mensualmente tiempos de respuesta y volumen de solicitudes"
       ],
       coste: {
-        minimo: 3000,
-        maximo: 9000,
+        minimo: 1000,
+        maximo: 3000,
         moneda: "EUR"
       },
       roi: {
-        minimo: 20,
-        maximo: 70
+        minimo: 80,
+        maximo: 200,
+        justificacion: "Centralizar comunicaciones reduce tiempo de respuesta (~50%), mejorando satisfacción. Evita pérdida de pedidos por mensajes no atendidos (~€500-1.500/mes). Libera tiempo comercial para vender, no para buscar información."
       },
       dependencias: [],
       tags: ["comunicación", "clientes", "operación comercial"]
@@ -874,13 +894,14 @@ const area4: Area = {
         "Ajustar reglas de compromiso de plazo en función de los datos"
       ],
       coste: {
-        minimo: 6000,
-        maximo: 18000,
+        minimo: 2500,
+        maximo: 6000,
         moneda: "EUR"
       },
       roi: {
-        minimo: 25,
-        maximo: 90
+        minimo: 120,
+        maximo: 320,
+        justificacion: "Evitar compromisos de plazo imposibles reduce tensiones y horas extra (~€800-1.500/mes). Menos incumplimientos mejora satisfacción cliente y reduce penalizaciones/descuentos (~€300-600/mes)."
       },
       dependencias: ["PRO-1"],
       tags: ["planificación", "comercial", "capacidad"]
@@ -900,10 +921,10 @@ const area5: Area = {
   prioridad: "alto",
   resumen: {
     numProblemas: 5,
-    inversionMin: 25000,
-    inversionMax: 80000,
-    ahorroMin: 50000,
-    ahorroMax: 200000
+    inversionMin: 18000,
+    inversionMax: 44000,
+    ahorroMin: 80000,
+    ahorroMax: 280000
   },
   problemas: [
     {
@@ -932,13 +953,14 @@ const area5: Area = {
         "Analizar indicadores de cumplimiento de plan y ajustar reglas"
       ],
       coste: {
-        minimo: 10000,
-        maximo: 30000,
+        minimo: 5000,
+        maximo: 12000,
         moneda: "EUR"
       },
       roi: {
-        minimo: 35,
-        maximo: 140
+        minimo: 180,
+        maximo: 500,
+        justificacion: "Planificación formal reduce tiempos muertos de máquina (~10-15%), horas extra por urgencias (~€1.500-3.000/mes) y mejora OEE general. En producción de extrusión, 1% de mejora de eficiencia puede representar €20.000-40.000/año."
       },
       dependencias: ["ALM-1"],
       tags: ["planificación", "producción", "mrp"]
@@ -969,13 +991,14 @@ const area5: Area = {
         "Construir informes claros que devuelvan información útil de esos datos"
       ],
       coste: {
-        minimo: 8000,
-        maximo: 24000,
+        minimo: 3000,
+        maximo: 8000,
         moneda: "EUR"
       },
       roi: {
-        minimo: 30,
-        maximo: 130
+        minimo: 150,
+        maximo: 400,
+        justificacion: "Datos útiles permiten identificar cuellos de botella y pérdidas ocultas. Eliminar capturas innecesarias ahorra ~5-8h/semana. Indicadores claros motivan mejoras que pueden representar 2-3% de productividad (~€15.000-30.000/año)."
       },
       dependencias: ["ORG-3"],
       tags: ["datos de planta", "indicadores", "eficiencia"]
@@ -1006,13 +1029,14 @@ const area5: Area = {
         "Ligar estos datos a decisiones de mantenimiento, ajustes de proceso o formación"
       ],
       coste: {
-        minimo: 7000,
-        maximo: 20000,
+        minimo: 3000,
+        maximo: 7000,
         moneda: "EUR"
       },
       roi: {
-        minimo: 40,
-        maximo: 180
+        minimo: 250,
+        maximo: 800,
+        justificacion: "El desperdicio en extrusión puede representar 3-8% del aluminio procesado. Controlarlo y reducirlo un 1-2% en una planta que procesa 500-1.000 toneladas/año representa €25.000-80.000/año de ahorro directo en materia prima."
       },
       dependencias: ["PRO-2"],
       tags: ["desperdicio", "extrusión", "costes"]
@@ -1043,13 +1067,14 @@ const area5: Area = {
         "Crear vistas para que administración y comercial puedan consultar el estado sin llamar"
       ],
       coste: {
-        minimo: 9000,
-        maximo: 26000,
+        minimo: 4000,
+        maximo: 10000,
         moneda: "EUR"
       },
       roi: {
-        minimo: 25,
-        maximo: 100
+        minimo: 120,
+        maximo: 350,
+        justificacion: "Trazabilidad completa reduce tiempo de consultas (~10-15h/semana). Clientes pueden ser informados sin llamadas internas. Menos errores de expedición (~€400-800/mes). Mejor imagen ante clientes exigentes."
       },
       dependencias: ["ALM-2", "ALM-4", "PRO-1"],
       tags: ["trazabilidad", "pedidos", "producción"]
@@ -1080,13 +1105,14 @@ const area5: Area = {
         "Medir reducción de llamadas e incidencias en el área tras los cambios"
       ],
       coste: {
-        minimo: 8000,
-        maximo: 22000,
+        minimo: 3000,
+        maximo: 7000,
         moneda: "EUR"
       },
       roi: {
-        minimo: 25,
-        maximo: 90
+        minimo: 130,
+        maximo: 350,
+        justificacion: "Reducir dependencia del regulador disminuye riesgo operativo (€15.000-25.000 si hay baja prolongada). Herramientas visuales reducen llamadas (~50-70%) y permiten delegar decisiones. Reglas claras reducen conflictos."
       },
       dependencias: ["PRO-1", "ALM-4"],
       tags: ["regulación", "carga de trabajo", "paneles"]
@@ -1106,10 +1132,10 @@ const area6: Area = {
   prioridad: "alto",
   resumen: {
     numProblemas: 5,
-    inversionMin: 15000,
-    inversionMax: 50000,
-    ahorroMin: 30000,
-    ahorroMax: 150000
+    inversionMin: 11000,
+    inversionMax: 28000,
+    ahorroMin: 40000,
+    ahorroMax: 130000
   },
   problemas: [
     {
@@ -1138,13 +1164,14 @@ const area6: Area = {
         "Compartir con la propiedad resultados de forma clara y transparente"
       ],
       coste: {
-        minimo: 5000,
-        maximo: 15000,
+        minimo: 2000,
+        maximo: 5000,
         moneda: "EUR"
       },
       roi: {
-        minimo: 30,
-        maximo: 120
+        minimo: 150,
+        maximo: 400,
+        justificacion: "Metodología de ROI evita inversiones fallidas (~€10.000-30.000/año en proyectos que no aportan). Permite priorizar inversiones con mayor retorno. Facilita comunicación con propiedad y justificación de gastos."
       },
       dependencias: ["ORG-3"],
       tags: ["roi", "inversión", "estrategia"]
@@ -1175,13 +1202,14 @@ const area6: Area = {
         "Revisar la hoja de ruta cada 6 meses en función de la realidad"
       ],
       coste: {
-        minimo: 7000,
-        maximo: 20000,
+        minimo: 3000,
+        maximo: 8000,
         moneda: "EUR"
       },
       roi: {
-        minimo: 25,
-        maximo: 100
+        minimo: 120,
+        maximo: 350,
+        justificacion: "Una hoja de ruta clara evita cambios de rumbo costosos (~€5.000-15.000/año). Permite negociar mejor con proveedores tecnológicos. Reduce ansiedad organizacional y mejora adopción de cambios."
       },
       dependencias: ["DIR-1", "ORG-1"],
       tags: ["roadmap", "tecnología", "priorización"]
@@ -1212,13 +1240,14 @@ const area6: Area = {
         "Cerrar formalmente los proyectos, recogiendo lecciones aprendidas"
       ],
       coste: {
-        minimo: 5000,
-        maximo: 14000,
+        minimo: 2000,
+        maximo: 5000,
         moneda: "EUR"
       },
       roi: {
-        minimo: 20,
-        maximo: 80
+        minimo: 100,
+        maximo: 280,
+        justificacion: "Proyectos bien gestionados terminan en plazo y presupuesto (~30% menos desviaciones). Evita proyectos zombi que consumen recursos sin cerrar. Lecciones aprendidas mejoran proyectos futuros."
       },
       dependencias: ["DIR-1", "DIR-2"],
       tags: ["proyectos", "gobernanza", "mejora continua"]
@@ -1249,13 +1278,14 @@ const area6: Area = {
         "Incorporar este enfoque en la estrategia de personas de la empresa"
       ],
       coste: {
-        minimo: 6000,
-        maximo: 18000,
+        minimo: 2500,
+        maximo: 6000,
         moneda: "EUR"
       },
       roi: {
-        minimo: 25,
-        maximo: 90
+        minimo: 120,
+        maximo: 320,
+        justificacion: "Reducir dependencia de personas clave mitiga riesgo operativo (coste potencial de baja prolongada: €20.000-50.000). Backups formados permiten vacaciones sin estrés. Conocimiento distribuido acelera resolución de problemas."
       },
       dependencias: ["ORG-2"],
       tags: ["personas clave", "riesgo operativo", "conocimiento"]
@@ -1286,13 +1316,14 @@ const area6: Area = {
         "Recoger feedback y ajustar sin perder el rumbo general"
       ],
       coste: {
-        minimo: 4000,
-        maximo: 12000,
+        minimo: 1500,
+        maximo: 4000,
         moneda: "EUR"
       },
       roi: {
-        minimo: 20,
-        maximo: 70
+        minimo: 80,
+        maximo: 200,
+        justificacion: "Gestión del cambio bien hecha aumenta adopción de mejoras (~50% más éxito en proyectos). Reduce resistencias que alargan implantaciones. Mejora clima laboral y retención de talento (~€5.000-10.000/año en rotación evitada)."
       },
       dependencias: ["DIR-2", "ORG-4"],
       tags: ["cultura", "cambio", "personas"]
