@@ -25,12 +25,11 @@ export default function AccessCodePage() {
   const [isLoading, setIsLoading] = useState(false);
   const [shake, setShake] = useState(false);
   
-  const inputRefs = [
-    useRef<HTMLInputElement>(null),
-    useRef<HTMLInputElement>(null),
-    useRef<HTMLInputElement>(null),
-    useRef<HTMLInputElement>(null),
-  ];
+  const inputRef0 = useRef<HTMLInputElement>(null);
+  const inputRef1 = useRef<HTMLInputElement>(null);
+  const inputRef2 = useRef<HTMLInputElement>(null);
+  const inputRef3 = useRef<HTMLInputElement>(null);
+  const inputRefs = [inputRef0, inputRef1, inputRef2, inputRef3];
 
   // Redirigir si ya tiene acceso
   useEffect(() => {
@@ -43,8 +42,8 @@ export default function AccessCodePage() {
 
   // Focus en el primer input al cargar
   useEffect(() => {
-    inputRefs[0].current?.focus();
-  }, [inputRefs]);
+    inputRef0.current?.focus();
+  }, []);
 
   const handleInputChange = (index: number, value: string) => {
     // Solo permitir números

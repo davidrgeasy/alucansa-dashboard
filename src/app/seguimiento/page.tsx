@@ -6,7 +6,7 @@ import { DashboardLayout } from '@/components/layout/DashboardLayout';
 import { Card, CardContent, CardHeader } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
 import { Select } from '@/components/ui/Select';
-import { getAllProblems, getAreaById, areas } from '@/data/problems';
+import { useProblems } from '@/store/useProblems';
 import { useTracking } from '@/store/useTracking';
 import { 
   ProblemStatus, 
@@ -67,7 +67,9 @@ interface ProjectWithTracking {
 }
 
 export default function SeguimientoPage() {
+  const { getAllProblems, getAreaById, getAllAreas } = useProblems();
   const allProblems = getAllProblems();
+  const areas = getAllAreas();
   const { getTracking, getAllTracking } = useTracking();
   
   // Estado de hidratación

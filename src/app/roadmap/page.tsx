@@ -7,7 +7,7 @@ import { Card, CardContent, CardHeader } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
 import { ExportButton } from '@/components/ui/ExportButton';
 import { RoadmapReport } from '@/components/export';
-import { getAllProblems, getAreaById } from '@/data/problems';
+import { useProblems } from '@/store/useProblems';
 import { Problem, HorizonteTemporal } from '@/types';
 import { 
   formatCurrency, 
@@ -40,6 +40,7 @@ interface TimelineGroup {
 }
 
 export default function RoadmapPage() {
+  const { getAllProblems, getAreaById } = useProblems();
   const allProblems = getAllProblems();
 
   const timelineGroups = useMemo<TimelineGroup[]>(() => {

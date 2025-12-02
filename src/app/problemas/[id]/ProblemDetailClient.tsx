@@ -7,10 +7,13 @@ import { DashboardLayout } from '@/components/layout/DashboardLayout';
 import { Card, CardContent, CardHeader } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
+import { Modal } from '@/components/ui/Modal';
 import { ExportButton } from '@/components/ui/ExportButton';
 import { ProblemReport } from '@/components/export';
-import { getProblemById, getAreaByProblemId } from '@/data/problems';
+import { ProblemForm } from '@/components/forms';
+import { useProblems } from '@/store/useProblems';
 import { useTracking } from '@/store/useTracking';
+import { useCanEdit, useAuth } from '@/store/useAuth';
 import { 
   TrackingPanel, 
   FollowUpForm, 
@@ -26,6 +29,7 @@ import {
   calculateAdjustedROI,
   cn
 } from '@/lib/utils';
+import { ROICalculator } from '@/components/calculator';
 import { 
   ArrowLeft, 
   AlertTriangle, 
@@ -43,15 +47,28 @@ import {
   ChevronDown,
   ChevronUp,
   Download,
-  History
+  History,
+  Edit3,
+  Calculator
 } from 'lucide-react';
 
 export default function ProblemDetailClient() {
   const params = useParams();
   const problemId = params.id as string;
   
+  // Problems store (para obtener datos combinados y editar)
+  const { 
+    getProblemById, 
+    getAreaById, 
+    getAllAreas, 
+    updateProblem, 
+    isCustomProblem, 
+    isProblemEdited 
+  } = useProblems();
+  
   const problem = getProblemById(problemId);
-  const area = problem ? getAreaByProblemId(problem.id) : undefined;
+  const area = problem ? getAreaById(problem.areaId) : undefined;
+  const allAreas = getAllAreas();
 
   // Tracking store
   const { 
@@ -64,12 +81,20 @@ export default function ProblemDetailClient() {
     setCustomCost,
     addFollowUp,
     deleteFollowUp,
+    getROICalculations,
+    saveROICalculation,
+    deleteROICalculation,
   } = useTracking();
+
+  // Auth
+  const canEdit = useCanEdit();
+  const { user } = useAuth();
 
   // Estado para hidratación (evitar errores de SSR con localStorage)
   const [isHydrated, setIsHydrated] = useState(false);
   const [showFullDescription, setShowFullDescription] = useState(false);
-  const [activeTab, setActiveTab] = useState<'seguimiento' | 'detalle'>('seguimiento');
+  const [activeTab, setActiveTab] = useState<'seguimiento' | 'detalle' | 'roi'>('seguimiento');
+  const [showEditModal, setShowEditModal] = useState(false);
   
   // Ref para exportación PDF (informe)
   const reportRef = useRef<HTMLDivElement>(null);
@@ -126,43 +151,76 @@ export default function ProblemDetailClient() {
       <div className="max-w-7xl mx-auto">
         {/* Navegación y estado */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6 animate-fade-in">
-          <Link 
-            href="/"
-            className="inline-flex items-center gap-2 text-sm text-slate-600 hover:text-primary-600 transition-colors"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            Volver al dashboard
-          </Link>
+          <div className="flex items-center gap-4">
+            <Link 
+              href="/"
+              className="inline-flex items-center gap-2 text-sm text-slate-600 hover:text-primary-600 transition-colors"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              Volver al dashboard
+            </Link>
+            
+            {/* Indicadores de problema personalizado/editado */}
+            {isHydrated && (
+              <div className="flex items-center gap-2">
+                {isCustomProblem(problemId) && (
+                  <span className="px-2 py-1 text-xs font-medium bg-purple-100 text-purple-700 rounded-full">
+                    Personalizado
+                  </span>
+                )}
+                {isProblemEdited(problemId) && (
+                  <span className="px-2 py-1 text-xs font-medium bg-blue-100 text-blue-700 rounded-full">
+                    Editado
+                  </span>
+                )}
+              </div>
+            )}
+          </div>
 
-          {/* Estado actual destacado */}
-          {isHydrated && tracking && statusConfig && (
-            <div className={cn(
-              'flex items-center gap-3 px-4 py-2 rounded-lg',
-              statusConfig.bgColor,
-              'border',
-              statusConfig.borderColor
-            )}>
-              <span className={cn('text-sm font-medium', statusConfig.color)}>
-                Estado: {statusConfig.label}
-              </span>
-              {tracking.assignee && (
-                <>
-                  <span className="text-slate-300">|</span>
-                  <span className="text-sm text-slate-600">
-                    Asignado: <strong>{tracking.assignee}</strong>
-                  </span>
-                </>
-              )}
-              {tracking.progress > 0 && (
-                <>
-                  <span className="text-slate-300">|</span>
-                  <span className="text-sm text-slate-600">
-                    <strong>{tracking.progress}%</strong> completado
-                  </span>
-                </>
-              )}
-            </div>
-          )}
+          <div className="flex items-center gap-3">
+            {/* Botón de editar */}
+            {canEdit && (
+              <Button
+                variant="secondary"
+                size="sm"
+                onClick={() => setShowEditModal(true)}
+                className="gap-2"
+              >
+                <Edit3 className="w-4 h-4" />
+                Editar Problema
+              </Button>
+            )}
+
+            {/* Estado actual destacado */}
+            {isHydrated && tracking && statusConfig && (
+              <div className={cn(
+                'flex items-center gap-3 px-4 py-2 rounded-lg',
+                statusConfig.bgColor,
+                'border',
+                statusConfig.borderColor
+              )}>
+                <span className={cn('text-sm font-medium', statusConfig.color)}>
+                  Estado: {statusConfig.label}
+                </span>
+                {tracking.assignee && (
+                  <>
+                    <span className="text-slate-300">|</span>
+                    <span className="text-sm text-slate-600">
+                      Asignado: <strong>{tracking.assignee}</strong>
+                    </span>
+                  </>
+                )}
+                {tracking.progress > 0 && (
+                  <>
+                    <span className="text-slate-300">|</span>
+                    <span className="text-sm text-slate-600">
+                      <strong>{tracking.progress}%</strong> completado
+                    </span>
+                  </>
+                )}
+              </div>
+            )}
+          </div>
         </div>
 
         {/* Badges de información */}
@@ -223,6 +281,18 @@ export default function ProblemDetailClient() {
               <FileText className="w-4 h-4" />
               Detalle Completo
             </button>
+            <button
+              onClick={() => setActiveTab('roi')}
+              className={cn(
+                'flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-all',
+                activeTab === 'roi'
+                  ? 'bg-white text-primary-900 shadow-sm'
+                  : 'text-slate-600 hover:text-primary-900'
+              )}
+            >
+              <Calculator className="w-4 h-4" />
+              Calculadora ROI
+            </button>
           </div>
 
           {/* Botón de exportación */}
@@ -250,9 +320,15 @@ export default function ProblemDetailClient() {
         </div>
 
         {/* Grid principal */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className={cn(
+          "grid gap-6",
+          activeTab === 'roi' ? "grid-cols-1" : "grid-cols-1 lg:grid-cols-3"
+        )}>
           {/* Columna principal */}
-          <div className="lg:col-span-2 space-y-6">
+          <div className={cn(
+            "space-y-6",
+            activeTab !== 'roi' && "lg:col-span-2"
+          )}>
             {activeTab === 'seguimiento' ? (
               <>
                 {/* Descripción resumida */}
@@ -327,7 +403,7 @@ export default function ProblemDetailClient() {
                   </CardContent>
                 </Card>
               </>
-            ) : (
+            ) : activeTab === 'detalle' ? (
               <>
                 {/* Descripción del problema */}
                 <Card className="animate-fade-in delay-200" style={{ opacity: 0 }}>
@@ -469,10 +545,25 @@ export default function ProblemDetailClient() {
                   </Card>
                 )}
               </>
-            )}
+            ) : activeTab === 'roi' ? (
+              <>
+                {/* Calculadora de ROI - pantalla completa */}
+                <div className="animate-fade-in delay-200" style={{ opacity: 0 }}>
+                  <ROICalculator
+                    problemId={problemId}
+                    initialInversionMin={problem.coste.minimo}
+                    initialInversionMax={problem.coste.maximo}
+                    savedCalculations={isHydrated ? getROICalculations(problemId) : []}
+                    onSaveCalculation={(calc) => saveROICalculation(problemId, calc)}
+                    onDeleteCalculation={(id) => deleteROICalculation(problemId, id)}
+                  />
+                </div>
+              </>
+            ) : null}
           </div>
 
-          {/* Sidebar derecha - Panel de tracking */}
+          {/* Sidebar derecha - Panel de tracking (oculto en pestaña ROI) */}
+          {activeTab !== 'roi' && (
           <div className="space-y-6 overflow-visible">
             {isHydrated && tracking ? (
               <TrackingPanel
@@ -627,8 +718,31 @@ export default function ProblemDetailClient() {
               </CardContent>
             </Card>
           </div>
+          )}
         </div>
       </div>
+
+      {/* Modal de edición */}
+      <Modal
+        isOpen={showEditModal}
+        onClose={() => setShowEditModal(false)}
+        size="xl"
+      >
+        <ProblemForm
+          problem={problem}
+          areas={allAreas}
+          isNew={false}
+          onSave={(updatedProblem) => {
+            updateProblem(
+              problemId,
+              updatedProblem,
+              user?.name || 'Usuario'
+            );
+            setShowEditModal(false);
+          }}
+          onCancel={() => setShowEditModal(false)}
+        />
+      </Modal>
     </DashboardLayout>
   );
 }

@@ -2,14 +2,17 @@
 
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { DashboardLayout } from '@/components/layout/DashboardLayout';
 import { Card, CardContent, CardHeader } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
+import { Modal } from '@/components/ui/Modal';
 import { ExportButton } from '@/components/ui/ExportButton';
 import { AreaReport } from '@/components/export';
-import { getAreaById, areas } from '@/data/problems';
+import { AreaForm, ProblemForm } from '@/components/forms';
+import { useProblems } from '@/store/useProblems';
+import { useCanEdit, useAuth } from '@/store/useAuth';
 import { 
   formatCurrency,
   formatCurrencyRange, 
@@ -30,15 +33,42 @@ import {
   ChevronRight,
   PieChart,
   Wallet,
-  PiggyBank
+  PiggyBank,
+  Edit3,
+  Plus
 } from 'lucide-react';
 
 export default function AreaDetailClient() {
   const params = useParams();
   const areaId = params.id as string;
   
+  // Problems store
+  const { 
+    getAreaById, 
+    getAllAreas,
+    updateArea, 
+    addProblem, 
+    getNextProblemId,
+    isCustomArea,
+    isAreaEdited 
+  } = useProblems();
+  
   const area = getAreaById(areaId);
+  const allAreas = getAllAreas();
   const reportRef = useRef<HTMLDivElement>(null);
+  
+  // Auth
+  const canEdit = useCanEdit();
+  const { user } = useAuth();
+  
+  // Modales
+  const [showEditAreaModal, setShowEditAreaModal] = useState(false);
+  const [showNewProblemModal, setShowNewProblemModal] = useState(false);
+  const [isHydrated, setIsHydrated] = useState(false);
+
+  useEffect(() => {
+    setIsHydrated(true);
+  }, []);
 
   if (!area) {
     return (
@@ -99,24 +129,70 @@ export default function AreaDetailClient() {
       <div className="max-w-6xl mx-auto">
         {/* Navegación y botón de exportación */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6 animate-fade-in">
-          <Link 
-            href="/"
-            className="inline-flex items-center gap-2 text-sm text-slate-600 hover:text-primary-600 transition-colors no-print"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            Volver al dashboard
-          </Link>
+          <div className="flex items-center gap-4">
+            <Link 
+              href="/"
+              className="inline-flex items-center gap-2 text-sm text-slate-600 hover:text-primary-600 transition-colors no-print"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              Volver al dashboard
+            </Link>
+            
+            {/* Indicadores de área personalizada/editada */}
+            {isHydrated && (
+              <div className="flex items-center gap-2">
+                {isCustomArea(areaId) && (
+                  <span className="px-2 py-1 text-xs font-medium bg-purple-100 text-purple-700 rounded-full">
+                    Personalizada
+                  </span>
+                )}
+                {isAreaEdited(areaId) && (
+                  <span className="px-2 py-1 text-xs font-medium bg-blue-100 text-blue-700 rounded-full">
+                    Editada
+                  </span>
+                )}
+              </div>
+            )}
+          </div>
 
-          <ExportButton
-            targetRef={reportRef}
-            options={{
-              filename: `informe-area-${area.codigo.toLowerCase()}`,
-              title: '',
-              subtitle: '',
-              orientation: 'portrait',
-            }}
-            label="Exportar Informe"
-          />
+          <div className="flex items-center gap-2">
+            {/* Botón de editar área */}
+            {canEdit && (
+              <Button
+                variant="secondary"
+                size="sm"
+                onClick={() => setShowEditAreaModal(true)}
+                className="gap-2"
+              >
+                <Edit3 className="w-4 h-4" />
+                Editar Área
+              </Button>
+            )}
+            
+            {/* Botón de nuevo problema */}
+            {canEdit && (
+              <Button
+                variant="primary"
+                size="sm"
+                onClick={() => setShowNewProblemModal(true)}
+                className="gap-2"
+              >
+                <Plus className="w-4 h-4" />
+                Nuevo Problema
+              </Button>
+            )}
+
+            <ExportButton
+              targetRef={reportRef}
+              options={{
+                filename: `informe-area-${area.codigo.toLowerCase()}`,
+                title: '',
+                subtitle: '',
+                orientation: 'portrait',
+              }}
+              label="Exportar Informe"
+            />
+          </div>
         </div>
 
         {/* Informe oculto para exportación PDF */}
@@ -415,7 +491,55 @@ export default function AreaDetailClient() {
           </Card>
         </div>
       </div>
+
+      {/* Modal de edición de área */}
+      <Modal
+        isOpen={showEditAreaModal}
+        onClose={() => setShowEditAreaModal(false)}
+        size="lg"
+      >
+        <AreaForm
+          area={area}
+          isNew={false}
+          onSave={(updatedArea) => {
+            updateArea(
+              areaId,
+              updatedArea,
+              user?.name || 'Usuario'
+            );
+            setShowEditAreaModal(false);
+          }}
+          onCancel={() => setShowEditAreaModal(false)}
+        />
+      </Modal>
+
+      {/* Modal de nuevo problema */}
+      <Modal
+        isOpen={showNewProblemModal}
+        onClose={() => setShowNewProblemModal(false)}
+        size="xl"
+      >
+        <ProblemForm
+          areas={allAreas}
+          isNew={true}
+          onSave={(newProblem) => {
+            const problemId = getNextProblemId(areaId);
+            addProblem(
+              {
+                ...newProblem,
+                id: problemId,
+                areaId: areaId,
+                createdBy: user?.name || 'Usuario',
+              },
+              user?.name || 'Usuario'
+            );
+            setShowNewProblemModal(false);
+          }}
+          onCancel={() => setShowNewProblemModal(false)}
+        />
+      </Modal>
     </DashboardLayout>
   );
 }
+
 

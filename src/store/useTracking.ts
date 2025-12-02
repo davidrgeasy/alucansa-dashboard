@@ -16,10 +16,12 @@ import {
   FollowUpType,
   CustomCost
 } from '@/types/tracking';
+import { ROICalculation } from '@/components/calculator/ROICalculator';
 
 interface TrackingStore {
   // Estado
   trackingData: Record<string, ProblemTracking>;
+  roiCalculations: Record<string, ROICalculation[]>;
   
   // Getters
   getTracking: (problemId: string) => ProblemTracking;
@@ -43,6 +45,11 @@ interface TrackingStore {
   addFollowUp: (problemId: string, followUp: Omit<FollowUp, 'id' | 'problemId' | 'createdAt'>) => void;
   updateFollowUp: (problemId: string, followUpId: string, content: string) => void;
   deleteFollowUp: (problemId: string, followUpId: string) => void;
+  
+  // Cálculos ROI
+  getROICalculations: (problemId: string) => ROICalculation[];
+  saveROICalculation: (problemId: string, calculation: ROICalculation) => void;
+  deleteROICalculation: (problemId: string, calculationId: string) => void;
   
   // Utilidades
   initializeTracking: (problemId: string) => void;
@@ -83,6 +90,7 @@ export const useTracking = create<TrackingStore>()(
   persist(
     (set, get) => ({
       trackingData: {},
+      roiCalculations: {},
       
       // Obtener tracking de un problema (crea uno nuevo si no existe)
       getTracking: (problemId: string) => {
@@ -292,6 +300,37 @@ export const useTracking = create<TrackingStore>()(
         });
       },
       
+      // Obtener cálculos ROI de un problema
+      getROICalculations: (problemId) => {
+        return get().roiCalculations[problemId] || [];
+      },
+      
+      // Guardar cálculo ROI
+      saveROICalculation: (problemId, calculation) => {
+        set((state) => {
+          const existing = state.roiCalculations[problemId] || [];
+          return {
+            roiCalculations: {
+              ...state.roiCalculations,
+              [problemId]: [calculation, ...existing],
+            },
+          };
+        });
+      },
+      
+      // Eliminar cálculo ROI
+      deleteROICalculation: (problemId, calculationId) => {
+        set((state) => {
+          const existing = state.roiCalculations[problemId] || [];
+          return {
+            roiCalculations: {
+              ...state.roiCalculations,
+              [problemId]: existing.filter((c) => c.id !== calculationId),
+            },
+          };
+        });
+      },
+      
       // Inicializar tracking para un problema
       initializeTracking: (problemId) => {
         set((state) => {
@@ -336,7 +375,10 @@ export const useTracking = create<TrackingStore>()(
     {
       name: 'alucansa-tracking-storage',
       storage: createJSONStorage(() => localStorage),
-      partialize: (state) => ({ trackingData: state.trackingData }),
+      partialize: (state) => ({ 
+        trackingData: state.trackingData,
+        roiCalculations: state.roiCalculations,
+      }),
     }
   )
 );
