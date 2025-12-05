@@ -2,7 +2,7 @@
 
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useMemo } from 'react';
 import { DashboardLayout } from '@/components/layout/DashboardLayout';
 import { Card, CardContent, CardHeader } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
@@ -56,6 +56,9 @@ export default function ProblemDetailClient() {
   const params = useParams();
   const problemId = params.id as string;
   
+  // Suscribirse a los datos del store (ahora vienen de la API)
+  const areasFromStore = useProblems((state) => state.areas);
+  
   // Problems store (para obtener datos combinados y editar)
   const { 
     getProblemById, 
@@ -66,9 +69,10 @@ export default function ProblemDetailClient() {
     isProblemEdited 
   } = useProblems();
   
-  const problem = getProblemById(problemId);
-  const area = problem ? getAreaById(problem.areaId) : undefined;
-  const allAreas = getAllAreas();
+  // Recalcular cuando cambien los datos del store
+  const problem = useMemo(() => getProblemById(problemId), [problemId, areasFromStore, getProblemById]);
+  const area = useMemo(() => problem ? getAreaById(problem.areaId) : undefined, [problem, areasFromStore, getAreaById]);
+  const allAreas = useMemo(() => getAllAreas(), [areasFromStore, getAllAreas]);
 
   // Tracking store
   const { 

@@ -1,8 +1,9 @@
 'use client';
 
+import { useMemo } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { areas } from '@/data/problems';
+import { useProblems } from '@/store/useProblems';
 import { useFilters } from '@/store/useFilters';
 import { cn } from '@/lib/utils';
 import { 
@@ -22,6 +23,13 @@ interface SidebarProps {
 export function Sidebar({ isOpen = true, onClose }: SidebarProps) {
   const pathname = usePathname();
   const { areaId } = useFilters();
+  
+  // Suscribirse a los datos del store (ahora vienen de la API)
+  const areasFromStore = useProblems((state) => state.areas);
+  const { getAllAreas } = useProblems();
+  
+  // Recalcular cuando cambien los datos del store
+  const areas = useMemo(() => getAllAreas(), [areasFromStore, getAllAreas]);
 
   const navItems = [
     { href: '/', label: 'Dashboard', icon: LayoutDashboard },

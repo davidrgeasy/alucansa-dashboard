@@ -2,7 +2,7 @@
 
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect, useMemo } from 'react';
 import { DashboardLayout } from '@/components/layout/DashboardLayout';
 import { Card, CardContent, CardHeader } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
@@ -42,6 +42,9 @@ export default function AreaDetailClient() {
   const params = useParams();
   const areaId = params.id as string;
   
+  // Suscribirse a los datos del store (ahora vienen de la API)
+  const areasFromStore = useProblems((state) => state.areas);
+  
   // Problems store
   const { 
     getAreaById, 
@@ -53,8 +56,9 @@ export default function AreaDetailClient() {
     isAreaEdited 
   } = useProblems();
   
-  const area = getAreaById(areaId);
-  const allAreas = getAllAreas();
+  // Recalcular cuando cambien los datos del store
+  const area = useMemo(() => getAreaById(areaId), [areaId, areasFromStore, getAreaById]);
+  const allAreas = useMemo(() => getAllAreas(), [areasFromStore, getAllAreas]);
   const reportRef = useRef<HTMLDivElement>(null);
   
   // Auth

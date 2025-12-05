@@ -40,8 +40,13 @@ interface TimelineGroup {
 }
 
 export default function RoadmapPage() {
+  // Suscribirse a los datos del store (ahora vienen de la API)
+  const areasFromStore = useProblems((state) => state.areas);
+  
   const { getAllProblems, getAreaById } = useProblems();
-  const allProblems = getAllProblems();
+  
+  // Recalcular cuando cambien los datos del store
+  const allProblems = useMemo(() => getAllProblems(), [areasFromStore, getAllProblems]);
 
   const timelineGroups = useMemo<TimelineGroup[]>(() => {
     const groups: Record<HorizonteTemporal, Problem[]> = {
