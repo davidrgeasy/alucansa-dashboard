@@ -24,12 +24,16 @@ export function Sidebar({ isOpen = true, onClose }: SidebarProps) {
   const pathname = usePathname();
   const { areaId } = useFilters();
   
-  // Suscribirse a los datos del store (ahora vienen de la API)
-  const areasFromStore = useProblems((state) => state.areas);
+  // Suscribirse a los datos del store para detectar cambios
+  const customProblems = useProblems((state) => state.customProblems);
+  const customAreas = useProblems((state) => state.customAreas);
+  const problemEdits = useProblems((state) => state.problemEdits);
+  const areaEdits = useProblems((state) => state.areaEdits);
+  
   const { getAllAreas } = useProblems();
   
   // Recalcular cuando cambien los datos del store
-  const areas = useMemo(() => getAllAreas(), [areasFromStore, getAllAreas]);
+  const areas = useMemo(() => getAllAreas(), [customProblems, customAreas, problemEdits, areaEdits, getAllAreas]);
 
   const navItems = [
     { href: '/', label: 'Dashboard', icon: LayoutDashboard },

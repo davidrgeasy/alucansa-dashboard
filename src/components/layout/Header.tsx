@@ -3,6 +3,7 @@
 import { Menu, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { UserMenu } from '@/components/auth';
+import { DataManager } from '@/components/DataManager';
 
 interface HeaderProps {
   title: string;
@@ -48,6 +49,7 @@ export function Header({ title, subtitle, isSidebarOpen, onToggleSidebar }: Head
               <span className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
               Datos actualizados
             </div>
+            <DataManager />
             <UserMenu />
           </div>
         </div>

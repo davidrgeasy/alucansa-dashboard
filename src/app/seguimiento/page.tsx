@@ -67,14 +67,17 @@ interface ProjectWithTracking {
 }
 
 export default function SeguimientoPage() {
-  // Suscribirse a los datos del store (ahora vienen de la API)
-  const areasFromStore = useProblems((state) => state.areas);
+  // Suscribirse a los datos del store para detectar cambios
+  const customProblems = useProblems((state) => state.customProblems);
+  const customAreas = useProblems((state) => state.customAreas);
+  const problemEdits = useProblems((state) => state.problemEdits);
+  const areaEdits = useProblems((state) => state.areaEdits);
   
   const { getAllProblems, getAreaById, getAllAreas } = useProblems();
   
   // Recalcular cuando cambien los datos del store
-  const allProblems = useMemo(() => getAllProblems(), [areasFromStore, getAllProblems]);
-  const areas = useMemo(() => getAllAreas(), [areasFromStore, getAllAreas]);
+  const allProblems = useMemo(() => getAllProblems(), [customProblems, customAreas, problemEdits, areaEdits, getAllProblems]);
+  const areas = useMemo(() => getAllAreas(), [customProblems, customAreas, problemEdits, areaEdits, getAllAreas]);
   
   const { getTracking, getAllTracking } = useTracking();
   

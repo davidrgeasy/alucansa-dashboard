@@ -56,8 +56,11 @@ export default function ProblemDetailClient() {
   const params = useParams();
   const problemId = params.id as string;
   
-  // Suscribirse a los datos del store (ahora vienen de la API)
-  const areasFromStore = useProblems((state) => state.areas);
+  // Suscribirse a los datos del store para detectar cambios
+  const customProblems = useProblems((state) => state.customProblems);
+  const customAreas = useProblems((state) => state.customAreas);
+  const problemEdits = useProblems((state) => state.problemEdits);
+  const areaEdits = useProblems((state) => state.areaEdits);
   
   // Problems store (para obtener datos combinados y editar)
   const { 
@@ -70,9 +73,9 @@ export default function ProblemDetailClient() {
   } = useProblems();
   
   // Recalcular cuando cambien los datos del store
-  const problem = useMemo(() => getProblemById(problemId), [problemId, areasFromStore, getProblemById]);
-  const area = useMemo(() => problem ? getAreaById(problem.areaId) : undefined, [problem, areasFromStore, getAreaById]);
-  const allAreas = useMemo(() => getAllAreas(), [areasFromStore, getAllAreas]);
+  const problem = useMemo(() => getProblemById(problemId), [problemId, customProblems, customAreas, problemEdits, areaEdits, getProblemById]);
+  const area = useMemo(() => problem ? getAreaById(problem.areaId) : undefined, [problem, customProblems, customAreas, problemEdits, areaEdits, getAreaById]);
+  const allAreas = useMemo(() => getAllAreas(), [customProblems, customAreas, problemEdits, areaEdits, getAllAreas]);
 
   // Tracking store
   const { 

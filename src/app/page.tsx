@@ -17,9 +17,11 @@ import { Plus, FolderPlus } from 'lucide-react';
 export default function DashboardPage() {
   const { applyFilters } = useFilters();
   
-  // Suscribirse a los datos del store (ahora vienen de la API)
-  const areas = useProblems((state) => state.areas);
-  const isLoading = useProblems((state) => state.isLoading);
+  // Suscribirse a los datos del store para detectar cambios
+  const customProblems = useProblems((state) => state.customProblems);
+  const customAreas = useProblems((state) => state.customAreas);
+  const problemEdits = useProblems((state) => state.problemEdits);
+  const areaEdits = useProblems((state) => state.areaEdits);
   
   // Obtener las funciones del store
   const { getAllProblems, getAllAreas, addProblem, addArea, getNextProblemId, getNextAreaId } = useProblems();
@@ -36,8 +38,8 @@ export default function DashboardPage() {
   }, []);
 
   // Recalcular cuando cambien los datos del store
-  const allProblems = useMemo(() => getAllProblems(), [areas, getAllProblems]);
-  const allAreas = useMemo(() => getAllAreas(), [areas, getAllAreas]);
+  const allProblems = useMemo(() => getAllProblems(), [customProblems, customAreas, problemEdits, areaEdits, getAllProblems]);
+  const allAreas = useMemo(() => getAllAreas(), [customProblems, customAreas, problemEdits, areaEdits, getAllAreas]);
 
   // Aplicar filtros a los problemas
   const filteredProblems = useMemo(() => {
