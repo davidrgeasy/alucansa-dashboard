@@ -76,11 +76,11 @@ const area1: Area = {
   descripcion: "Estructura organizativa, definición de roles, gobierno del dato y forma en que las decisiones se apoyan (o no) en información fiable.",
   prioridad: "alto",
   resumen: {
-    numProblemas: 5,
-    inversionMin: 11000,
-    inversionMax: 29000,
-    ahorroMin: 35000,
-    ahorroMax: 120000
+    numProblemas: 8,
+    inversionMin: 17500,
+    inversionMax: 41500,
+    ahorroMin: 52000,
+    ahorroMax: 170000
   },
   problemas: [
     {
@@ -272,6 +272,130 @@ const area1: Area = {
       },
       dependencias: ["ORG-1", "ORG-2"],
       tags: ["roles", "tecnologia", "procesos"]
+    },
+    {
+      id: "ORG-6",
+      areaId: "area1",
+      titulo: "Gestión de precios y actualización de listas bajo procesos manuales",
+      descripcion: "La actualización de precios de herrajes y listas comerciales se realiza mensualmente mediante codificación manual de facturas en papel, consolidación en Excel externo y volcado posterior a LIBRA, generando márgenes desactualizados, errores de transcripción y riesgo de ventas a pérdida.",
+      impacto: "alto",
+      urgencia: "corto",
+      causas: [
+        "Gestión de precios dependiente de codificación manual externa desde facturas papel.",
+        "Dependencia de codificación manual de precios desde papel y Excel para herrajes.",
+        "Ausencia de automatización en procesos comerciales que vinculen compras con precios de venta."
+      ],
+      evidencias: [
+        "Se codifican facturas papel para los precios de los herrajes.",
+        "Se reciben los datos en Excel mensualmente.",
+        "Actualización LIBRA manual con riesgo de errores de transcripción.",
+        "Márgenes desactualizados por revisiones lentas."
+      ],
+      solucionPropuesta: "Automatizar flujo precios: integración automática facturas compra → cálculo margen → actualización precios venta en LIBRA con alertas revisión mensual y validación ATP precios.",
+      pasosImplementacion: [
+        "Configurar módulo compras LIBRA para importar facturas de proveedores automáticamente vía OCR/email.",
+        "Crear regla negocio cálculo automático precios venta (coste + margen estándar) desde datos compra.",
+        "Implementar workflow aprobación precios con notificación a responsables.",
+        "Programar alertas semanales para revisión de precios críticos de herrajes de rotación alta.",
+        "Migrar listas Excel actuales a LIBRA y capacitar 2 usuarios clave en nuevo flujo.",
+        "Validar 1 mes paralelo manual/digital antes eliminar papel."
+      ],
+      coste: {
+        minimo: 2000,
+        maximo: 3500,
+        moneda: "EUR"
+      },
+      roi: {
+        minimo: 350,
+        maximo: 450,
+        justificacion: "Eliminación 8h/mes transcripción manual (€400/mes ahorro laboral) + aprox 3% mejora márgenes ventas herrajes + reducción errores facturación."
+      },
+      dependencias: [],
+      tags: ["precios", "automatización", "LIBRA", "herrajes"]
+    },
+    {
+      id: "ORG-7",
+      areaId: "area1",
+      titulo: "Falta de integración documental y gestión de compras fuera del ERP",
+      descripcion: "Gestión de compras de consumibles y documentación técnica se realiza vía email personal y archivos externos sin vinculación a LIBRA, generando descontrol de costes, opacidad en proveedores y retrasos en acceso a datos técnicos críticos.",
+      impacto: "medio",
+      urgencia: "medio",
+      causas: [
+        "Falta de trazabilidad en compras de consumibles vía email personal sin orden ERP.",
+        "Criterios subjetivos sin reglas de negocio estandarizadas en sistema.",
+        "Falta de integración documental; planos no vinculados al ERP."
+      ],
+      evidencias: [
+        "Pedidos de pintura gestionados por email personal.",
+        "Histórico proveedores en bandeja entrada individual.",
+        "Planos técnicos sin vinculación directa LIBRA.",
+        "Sin órdenes compra formalizadas en ERP consumibles."
+      ],
+      solucionPropuesta: "Integrar módulo de compras de LIBRA con workflow de órdenes de compra digital, adjuntos automáticos y vinculación documentos técnicos a artículos ERP.",
+      pasosImplementacion: [
+        "Configurar módulo compras LIBRA con plantillas órdenes estándar consumibles.",
+        "Activar adjuntos digitales email → LIBRA para facturas/proveedores.",
+        "Vincular planos técnicos a fichas artículos en módulo producción.",
+        "Implementar approvals digitales 2 niveles para compras >€500.",
+        "Migrar histórico email proveedores a LIBRA (1 semana).",
+        "Capacitar 3 usuarios clave + validar 2 ciclos compras."
+      ],
+      coste: {
+        minimo: 1500,
+        maximo: 3000,
+        moneda: "EUR"
+      },
+      roi: {
+        minimo: 250,
+        maximo: 350,
+        justificacion: "Eliminación 12h/mes gestión manual email (€500/mes) + 3% ahorro compras volumen."
+      },
+      dependencias: ["ALM-6", "ALM-7", "ORG-6"],
+      tags: ["compras", "documentación", "ERP", "trazabilidad"]
+    },
+    {
+      id: "ORG-8",
+      areaId: "area1",
+      titulo: "Control de Calidad y Gestión Reactiva de Incidencias",
+      descripcion: "El control de calidad se realiza principalmente mediante inspección visual sin un registro sistemático ni oportuno en el sistema ERP LIBRA. Los rechazos, mermas y defectos no se registran ni analizan digitalmente, lo que provoca falta de visibilidad real sobre costes de no calidad y dificulta la mejora continua.",
+      impacto: "alto",
+      urgencia: "corto",
+      causas: [
+        "Control visual sin registro formal ni digitalización de los resultados de inspección.",
+        "Falta de registro sistemático y oportuno de mermas y chatarra en LIBRA.",
+        "Registro incompleto de piezas defectuosas, sin análisis ni causas documentadas.",
+        "Dependencia de canales informales (verbal, papel) para comunicar incidencias entre turnos.",
+        "Ausencia de protocolos formales y tickets para gestión de incidencias.",
+        "Dependencia crítica de personal único sin backup para soporte ERP e infraestructura."
+      ],
+      evidencias: [
+        "Inspección visual final realizada por operarios sin volcado sistemático en LIBRA.",
+        "Anotaciones manuales de chatarra y defectos entregadas de forma física o por WhatsApp.",
+        "Comunicación de incidencias hecha verbalmente o con registros físicos sin trazabilidad.",
+        "Actualización manual de inventarios y consumos con retrasos y falta de precisión.",
+        "Falta de mecanismos de reporte automatizados y seguimiento formal de incidencias con SLAs."
+      ],
+      solucionPropuesta: "Implementar un módulo digital integrado en LIBRA para el registro sistémico del control de calidad, mermas y defectos, con trazabilidad desde planta hasta administración. Adoptar herramientas de gestión de incidencias con tickets, protocolos claros y métricas.",
+      pasosImplementacion: [
+        "Desarrollar y configurar en LIBRA formularios digitales para registro en planta de inspección de calidad, mermas y rechazo de materiales.",
+        "Adoptar sistema de tickets para incidencias operativas con priorización y seguimiento hasta resolución.",
+        "Capacitar a operarios y responsables para uso digital riguroso desde la inspección hasta reporte.",
+        "Integrar notificaciones automáticas e informes para análisis de causas de defectos y costos asociados.",
+        "Crear plan de backup y formación cruzada para evitar dependencia de personal único en soporte.",
+        "Realizar auditorías periódicas para validar calidad de datos y cumplimiento."
+      ],
+      coste: {
+        minimo: 3000,
+        maximo: 6000,
+        moneda: "EUR"
+      },
+      roi: {
+        minimo: 200,
+        maximo: 400,
+        justificacion: "Reducción de costos ocultos de no calidad, mejora en la calidad final y satisfacción cliente. Visibilidad sobre mermas permite acciones correctivas que pueden ahorrar 2-4% en costes de producción."
+      },
+      dependencias: ["ALM-6", "ORG-7"],
+      tags: ["calidad", "mermas", "incidencias", "trazabilidad"]
     }
   ]
 };
@@ -287,11 +411,11 @@ const area2: Area = {
   descripcion: "Gestión de existencias, movimientos entre almacenes, preparación de pedidos y coordinación logística con producción y clientes.",
   prioridad: "alto",
   resumen: {
-    numProblemas: 5,
-    inversionMin: 13500,
-    inversionMax: 33000,
-    ahorroMin: 55000,
-    ahorroMax: 180000
+    numProblemas: 7,
+    inversionMin: 19000,
+    inversionMax: 42500,
+    ahorroMin: 100000,
+    ahorroMax: 270000
   },
   problemas: [
     {
@@ -483,6 +607,90 @@ const area2: Area = {
       },
       dependencias: ["ALM-1", "ALM-2"],
       tags: ["kpi", "logística", "servicio"]
+    },
+    {
+      id: "ALM-6",
+      areaId: "area2",
+      titulo: "Inventario preciso y control automatizado de stock",
+      descripcion: "El control del stock físico y digital presenta discrepancias constantes. No existe un inventario cíclico formalizado ni automatizado que permita validar entradas, salidas ni mermas de forma periódica y confiable. Esto genera incertidumbre en la disponibilidad real de materiales, afectando la planificación y la gestión de pedidos.",
+      impacto: "alto",
+      urgencia: "corto",
+      causas: [
+        "Ausencia de inventarios físicos periódicos estandarizados.",
+        "Recuento manual y no sistemático del stock, con altos errores.",
+        "Falta de conciliación automática entre stock físico y digital.",
+        "Uso preferente de ajustes verbales o en papel para discrepancias.",
+        "No hay registros formales ni protocolos para ajustes o mermas."
+      ],
+      evidencias: [
+        "Bruno y equipo realizan conteos esporádicos sin método definido.",
+        "Ajustes de stock frecuentes sin documentación formal ni hoy en ERP.",
+        "Preferencia por verificaciones visuales o consulta a 'expertos' en lugar de datos digitales.",
+        "Discrepancias no resueltas entre software LIBRA y stock real."
+      ],
+      solucionPropuesta: "Implementar un sistema digitalizado y automatizado de inventarios cíclicos con reconciliación entre stock físico y digital, apoyado en herramientas móviles y procedimientos estandarizados.",
+      pasosImplementacion: [
+        "Definir ciclos semanales y mensuales de inventario según tipo de materiales y criticidad.",
+        "Dotar a operarios de dispositivos móviles para escaneo y registro en LIBRA durante inspecciones.",
+        "Configurar alertas automáticas para discrepancias y mermas detectadas.",
+        "Establecer protocolos y registros formales para ajustes y causas asociadas.",
+        "Capacitar a personal en uso de herramientas y protocolos.",
+        "Realizar auditorías periódicas para validar proceso y datos."
+      ],
+      coste: {
+        minimo: 4000,
+        maximo: 6000,
+        moneda: "EUR"
+      },
+      roi: {
+        minimo: 700,
+        maximo: 1000,
+        justificacion: "El ahorro en mermas, optimización de recursos y mejor planificación producen un retorno rápido, con beneficios operativos y financieros sostenibles en el tiempo. Implementar controles digitales reduce la investigación manual y evita pérdidas costosas."
+      },
+      dependencias: ["ALM-5", "ORG-7", "PRO-3", "ORG-8"],
+      tags: ["inventario", "stock", "automatización", "control"]
+    },
+    {
+      id: "ALM-7",
+      areaId: "area2",
+      titulo: "Alertas automáticas de rotura de stock",
+      descripcion: "Ausencia total de alertas automáticas para roturas de stock crítico. No existen umbrales configurados en LIBRA ni notificaciones proactivas para reabastecimiento de materias primas y consumibles clave (pintura, perfiles). Esto genera paros de producción imprevistos y compras de emergencia a precios elevados.",
+      impacto: "alto",
+      urgencia: "corto",
+      causas: [
+        "Sin umbrales mínimos configurados por artículo crítico en LIBRA.",
+        "Ausencia de notificaciones automáticas para responsables de compras.",
+        "Dependencia de memoria personal para monitoreo de stocks bajos.",
+        "Compras reactivas de emergencia sin planificación.",
+        "Stock de seguridad no definido ni respetado sistemáticamente."
+      ],
+      evidencias: [
+        "Se monitorean manualmente stocks sensibles vía Excel paralelo.",
+        "Compras urgentes frecuentes por falta de visibilidad stock real.",
+        "Ninguna alerta configurada en LIBRA para niveles mínimos críticos.",
+        "Paros en producción por falta material sin previsión digital."
+      ],
+      solucionPropuesta: "Configurar en LIBRA umbrales mínimos/máximos por artículo crítico con alertas automáticas multicanal (email, dashboard, móvil) y workflow de aprobación compras.",
+      pasosImplementacion: [
+        "Clasificar ABC materiales críticos y definir stock mínimo/seguridad por SKU.",
+        "Configurar alertas automáticas LIBRA (email + dashboard visual).",
+        "Crear workflow digital aprobación compras desde alerta stock bajo.",
+        "Integrar con módulo compras para órdenes automáticas pre-aprobadas.",
+        "Testear con 10 artículos críticos + validar 2 ciclos completos.",
+        "Dashboard ejecutivo con KPIs roturas stock + tiempo respuesta."
+      ],
+      coste: {
+        minimo: 1500,
+        maximo: 3500,
+        moneda: "EUR"
+      },
+      roi: {
+        minimo: 400,
+        maximo: 1000,
+        justificacion: "Compras de emergencia representan un sobrecoste del 10-20% sobre precio normal. El stock de seguridad excesivo inmoviliza capital. Las alertas automáticas eliminan el 99% de compras reactivas y optimizan el inventario en 1 ciclo."
+      },
+      dependencias: ["ALM-6", "ORG-7", "ALM-4", "PRO-6"],
+      tags: ["alertas", "stock", "rotura", "compras"]
     }
   ]
 };
@@ -508,40 +716,44 @@ const area3: Area = {
     {
       id: "ADM-1",
       areaId: "area3",
-      titulo: "Dispersión de herramientas contables y administrativas",
-      descripcion: "Coexisten distintos programas y hojas auxiliares para facturación, contabilidad y reporting, lo que genera duplicidades, errores y falta de visión única.",
+      titulo: "Entrada manual facturas de compra y conciliación bancaria",
+      descripcion: "Más de 100 facturas/mes introducidas manualmente en LIBRA (8-10 min/factura). Conciliación bancaria mediante descarga manual extractos sin automatización. Genera 12-15h/semana trabajo repetitivo, errores humanos y retrasos en cierres financieros.",
       impacto: "alto",
-      urgencia: "medio",
+      urgencia: "corto",
       causas: [
-        "Evolución histórica con soluciones parciales (LIBRA, TRIVALLE, hojas de cálculo)",
-        "Diferente grado de confianza en cada herramienta según el usuario",
-        "Ausencia de una hoja de ruta clara sobre qué sistema es el de referencia"
+        "Entrada manual 100+ facturas/mes sin OCR/automatización.",
+        "Conciliación bancaria manual sin matching automático.",
+        "Errores transcripción afectan coste artículos y márgenes.",
+        "Retrasos cierres mensuales por validación manual.",
+        "Ausencia control duplicidades/aprobaciones digitales."
       ],
       evidencias: [
-        "Repetición de datos en varias herramientas",
-        "Tareas manuales para cuadrar información entre sistemas",
-        "Dudas recurrentes sobre qué cifra es la \"buena\" en cada informe"
+        "Se dedican 12h/semana solo a entrada de facturas de proveedores.",
+        "Se descargan de forma manual los extractos bancarios y se lleva la conciliación en Excel.",
+        "Los errores en la codificación de artículos pueden afectar al inventario.",
+        "Cierres contables retrasados 3-5 días por validaciones manuales."
       ],
-      solucionPropuesta: "Definir un sistema contable y de facturación de referencia y una estrategia de transición clara para reducir herramientas y duplicidades.",
+      solucionPropuesta: "Automatizar entrada facturas mediante OCR + integración bancaria directa LIBRA + workflow aprobaciones digitales 2 niveles.",
       pasosImplementacion: [
-        "Mapear qué procesos se hacen en cada herramienta actual",
-        "Evaluar funcionalidad y costes de cada sistema frente a necesidades reales",
-        "Tomar una decisión explícita sobre el sistema contable/facturación de referencia",
-        "Definir un plan de transición por fases, priorizando la eliminación de duplicidades",
-        "Formar al equipo en el sistema objetivo y acompañar durante la adaptación"
+        "Configurar OCR facturas proveedores → LIBRA (scan/email).",
+        "Integrar extractos bancarios automáticos con conciliación inteligente.",
+        "Implementar workflow aprobaciones digitales (>€500 requiere firma doble).",
+        "Migrar histórico 3 meses facturas para test (1 semana).",
+        "Dashboard KPIs: tiempo procesado/factura, errores, días cierre.",
+        "Capacitación 4h para administración + validación 1 ciclo completo."
       ],
       coste: {
-        minimo: 3500,
-        maximo: 9000,
+        minimo: 2500,
+        maximo: 5000,
         moneda: "EUR"
       },
       roi: {
-        minimo: 130,
-        maximo: 350,
-        justificacion: "Eliminación de duplicidades ahorra ~10-15h/semana. Un solo sistema de referencia reduce errores de cuadre (~€500-1.000/mes). Menor coste de mantenimiento de múltiples herramientas (~€2.000-4.000/año)."
+        minimo: 350,
+        maximo: 700,
+        justificacion: "600h/año liberadas para análisis financiero vs. tareas administrativas. Errores de codificación pueden generar discrepancias inventario/coste que se corrigen automáticamente. Cierres anticipados mejoran la tesorería."
       },
-      dependencias: ["ORG-1"],
-      tags: ["contabilidad", "facturación", "sistemas"]
+      dependencias: ["ORG-7", "ALM-6", "ORG-6"],
+      tags: ["facturas", "OCR", "conciliación bancaria", "automatización"]
     },
     {
       id: "ADM-2",
@@ -920,11 +1132,11 @@ const area5: Area = {
   descripcion: "Planificación, ejecución y control de la fabricación, con especial foco en extrusión y acabados.",
   prioridad: "alto",
   resumen: {
-    numProblemas: 5,
-    inversionMin: 18000,
-    inversionMax: 44000,
-    ahorroMin: 80000,
-    ahorroMax: 280000
+    numProblemas: 6,
+    inversionMin: 21500,
+    inversionMax: 49000,
+    ahorroMin: 89000,
+    ahorroMax: 305000
   },
   problemas: [
     {
@@ -1116,6 +1328,47 @@ const area5: Area = {
       },
       dependencias: ["PRO-1", "ALM-4"],
       tags: ["regulación", "carga de trabajo", "paneles"]
+    },
+    {
+      id: "PRO-6",
+      areaId: "area5",
+      titulo: "Desfase entre jaula virtual y realidad física",
+      descripcion: "La jaula virtual de LIBRA no refleja de forma fiable el estado real de las jaulas y burras en planta. Esto provoca que el sistema muestre material disponible o en ubicación incorrecta mientras físicamente ya se ha movido, consumido o descartado, rompiendo la trazabilidad.",
+      impacto: "alto",
+      urgencia: "corto",
+      causas: [
+        "Gestión de stock 'a ojo' por desconfianza total en LIBRA; el regulador verifica visualmente en planta en lugar de fiarse del sistema.",
+        "Retraso deliberado de 2-3 días en registrar consumos para 'protegerse' ante cambios del cliente, dejando el stock digital falseado.",
+        "Comunicación de producción terminada por foto de parte manuscrito vía WhatsApp, sin cambio de estado fiable en el ERP.",
+        "Falta de registro sistemático de mermas/chatarra, con barras defectuosas que no se dan de baja de forma consistente."
+      ],
+      evidencias: [
+        "Regulador y responsables recorren físicamente las jaulas para validar disponibilidad, ignorando el dato de LIBRA.",
+        "El sistema muestra barras y kilos como disponibles que ya han sido cortados, pintados o incluso enviados.",
+        "El cierre de pedidos se comunica por canales informales (foto, llamada) sin reflejo inmediato y estructurado en el sistema.",
+        "Las bajas por chatarra dependen de partes en papel y comunicación verbal, no de un flujo estándar en el ERP."
+      ],
+      solucionPropuesta: "Rediseñar el flujo de jaulas para que cada movimiento crítico (carga, proceso, merma, cierre) se registre en LIBRA en tiempo casi real, con estados estandarizados por fase y responsabilidades claras de imputación.",
+      pasosImplementacion: [
+        "Definir mapa estándar de estados de jaula (Planificada, En proceso, En acabado, Pendiente revisión, Lista para expedición, Cerrada).",
+        "Configurar en LIBRA los movimientos obligatorios por fase (carga, corte, lacado/anodizado, control calidad, empaquetado, expedición).",
+        "Implantar registro de movimientos en planta mediante terminales fijos/tablets en puntos clave, eliminando notas intermedias en papel.",
+        "Obligar al registro inmediato de consumos y chatarra al finalizar fase, con campos mínimos (causa, kilos, referencia).",
+        "Sustituir la confirmación por WhatsApp por un cambio de estado en el ERP que dispare aviso automático a facturación.",
+        "Auditoría semanal: comparar muestreo de jaulas físicas vs jaula virtual hasta alcanzar >95% de concordancia."
+      ],
+      coste: {
+        minimo: 3500,
+        maximo: 5000,
+        moneda: "EUR"
+      },
+      roi: {
+        minimo: 250,
+        maximo: 500,
+        justificacion: "Reducción de paros y re-trabajos por errores de material: ahorro estimado de 10h/mes de prensa y acabados. Disminución de descuadres de stock y correcciones manuales: 12h/mes de regulador y administración. Mejora en aprovechamiento de material (mermas visibles y acotadas)."
+      },
+      dependencias: ["ALM-4", "ALM-6", "ORG-8", "PRO-3"],
+      tags: ["jaulas", "trazabilidad", "stock", "LIBRA"]
     }
   ]
 };
@@ -1131,11 +1384,11 @@ const area6: Area = {
   descripcion: "Enfoque estratégico, priorización de inversiones, gobierno de proyectos y cultura de mejora continua.",
   prioridad: "alto",
   resumen: {
-    numProblemas: 5,
-    inversionMin: 11000,
-    inversionMax: 28000,
-    ahorroMin: 40000,
-    ahorroMax: 130000
+    numProblemas: 6,
+    inversionMin: 16000,
+    inversionMax: 36000,
+    ahorroMin: 55000,
+    ahorroMax: 170000
   },
   problemas: [
     {
@@ -1327,6 +1580,48 @@ const area6: Area = {
       },
       dependencias: ["DIR-2", "ORG-4"],
       tags: ["cultura", "cambio", "personas"]
+    },
+    {
+      id: "DIR-6",
+      areaId: "area6",
+      titulo: "Dashboards ejecutivos y visibilidad estratégica para dirección",
+      descripcion: "La dirección carece de dashboards operativos fiables en LIBRA que consoliden KPIs críticos (stock real, avance producción, costes por pedido, carga capacidad). Los informes actuales son manuales, parciales o basados en datos no fiables, forzando decisiones intuitivas en lugar de datos estructurados.",
+      impacto: "alto",
+      urgencia: "medio",
+      causas: [
+        "Dependencia crítica de conocimiento tácito en responsable técnico; dirección sin visibilidad sobre planificación real y priorización.",
+        "Gestión en silos paralelos (Excel personal, email); opacidad total sobre recursos y materiales clave.",
+        "Desconfianza estructural en stock contable; balances que no reflejan realidad física del inventario.",
+        "Información fragmentada sobre avances de producción; sin seguimiento preciso de estados de pedidos.",
+        "Errores ERP (ventas negativo, stock fantasma) comunicados oralmente sin análisis sistemático."
+      ],
+      evidencias: [
+        "Propiedad invierte horas en extraer datos de LIBRA que resultan inutilizables por inconsistencias.",
+        "Ausencia de pantallas ejecutivas con stock real, OEE máquinas, mermas por línea o plazos entrega reales.",
+        "Dirección recurre a visitas físicas o llamadas para validar cualquier métrica operativa crítica.",
+        "Informes financieros distorsionados por stock 'fantasma' y ajustes manuales no trazados."
+      ],
+      solucionPropuesta: "Implantar 5 dashboards ejecutivos en LIBRA con refresh automático: Stock precisión, Avance producción, Rentabilidad pedidos, Capacidad planta, Alertas desviaciones.",
+      pasosImplementacion: [
+        "Identificar 12-15 KPIs prioritarios (stock % precisión, mermas diarias, pedidos con retraso >3 días, utilización prensas).",
+        "Configurar queries LIBRA para extraer datos limpios post-ALM-4/PRO-6 (jaulas fiables).",
+        "Diseñar 5 pantallas: Dashboard Dirección (global), Stock (diario), Producción (hora), Financiero (semanal), Alertas (tiempo real).",
+        "Acceso móvil/tablet para propiedad con notificaciones push desviaciones > umbral.",
+        "Formación 4h dirección + testeo 2 semanas con datos simulados.",
+        "Mantenimiento mensual: revisión KPIs + 1h soporte."
+      ],
+      coste: {
+        minimo: 5000,
+        maximo: 8000,
+        moneda: "EUR"
+      },
+      roi: {
+        minimo: 300,
+        maximo: 500,
+        justificacion: "Tiempo de dirección liberado, mejora en el establecimiento de precios y en márgenes, reducción de mermas y de stock inmovilizado."
+      },
+      dependencias: ["ALM-4", "PRO-6", "ORG-8"],
+      tags: ["dashboards", "KPIs", "dirección", "LIBRA"]
     }
   ]
 };

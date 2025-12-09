@@ -103,3 +103,5 @@ INSERT INTO problemas (id, area_id, titulo, descripcion, impacto, urgencia, caus
 -- FIN DE DATOS INICIALES
 -- ===========================================
 
+
+
