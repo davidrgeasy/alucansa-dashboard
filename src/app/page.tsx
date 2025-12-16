@@ -15,6 +15,14 @@ import { calculateKPIs } from '@/lib/utils';
 import { Plus, FolderPlus } from 'lucide-react';
 
 export default function DashboardPage() {
+  // Suscribirse a los filtros para detectar cambios
+  const areaIdFilter = useFilters((state) => state.areaId);
+  const impactoFilter = useFilters((state) => state.impacto);
+  const horizonteFilter = useFilters((state) => state.horizonte);
+  const costeMinFilter = useFilters((state) => state.costeMin);
+  const costeMaxFilter = useFilters((state) => state.costeMax);
+  const roiMinFilter = useFilters((state) => state.roiMin);
+  const roiMaxFilter = useFilters((state) => state.roiMax);
   const { applyFilters } = useFilters();
   
   // Suscribirse a los datos del store para detectar cambios
@@ -44,7 +52,7 @@ export default function DashboardPage() {
   // Aplicar filtros a los problemas
   const filteredProblems = useMemo(() => {
     return applyFilters(allProblems);
-  }, [applyFilters, allProblems]);
+  }, [applyFilters, allProblems, areaIdFilter, impactoFilter, horizonteFilter, costeMinFilter, costeMaxFilter, roiMinFilter, roiMaxFilter]);
 
   // Calcular KPIs de los problemas filtrados
   const kpis = useMemo(() => {

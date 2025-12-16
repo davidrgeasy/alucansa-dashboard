@@ -190,8 +190,8 @@ const area1: Area = {
         moneda: "EUR"
       },
       roi: {
-        minimo: 120,
-        maximo: 350,
+        minimo: 750,
+        maximo: 5000,
         justificacion: "Mejora en la toma de decisiones que puede evitar ~2-3% de pérdidas por malas decisiones de precio, stock o producción. En una facturación de 3-5M€ representa €60.000-150.000/año de impacto potencial."
       },
       dependencias: ["ORG-1"],
@@ -228,9 +228,9 @@ const area1: Area = {
         moneda: "EUR"
       },
       roi: {
-        minimo: 80,
-        maximo: 200,
-        justificacion: "Ahorro de ~3-5h/semana en reuniones improductivas y repetición de información. Reducción de malentendidos que generan errores (~€200-400/mes). Mejor alineación reduce fricciones y urgencias."
+        minimo: 213,
+        maximo: 1880,
+        justificacion: "Ahorro de ~3-5h/semana en reuniones improductivas y repetición de información. Reducción de malentendidos que generan errores (~€200-400/mes). Mejor alineación reduce fricciones y urgencias. Retorno anual estimado: 9.400-19.800€."
       },
       dependencias: [],
       tags: ["comunicación interna", "reuniones", "gobernanza"]
@@ -266,9 +266,9 @@ const area1: Area = {
         moneda: "EUR"
       },
       roi: {
-        minimo: 100,
-        maximo: 250,
-        justificacion: "Liberación del 30-40% del tiempo del perfil técnico para tareas de su competencia real. Reducción de frustraciones y rotación (coste de sustitución ~€8.000-15.000). Mejor rendimiento de proyectos tecnológicos."
+        minimo: 276,
+        maximo: 778,
+        justificacion: "Liberación del 30-40% del tiempo del perfil técnico para tareas de su competencia real (6.048€/año). Reducción 50% riesgo rotación (2.000-3.750€/año). Proyectos técnicos liberados (5.760€/año). Ahorro anual total: 13.808-15.558€."
       },
       dependencias: ["ORG-1", "ORG-2"],
       tags: ["roles", "tecnologia", "procesos"]
@@ -306,8 +306,8 @@ const area1: Area = {
         moneda: "EUR"
       },
       roi: {
-        minimo: 350,
-        maximo: 450,
+        minimo: 323,
+        maximo: 420,
         justificacion: "Eliminación 8h/mes transcripción manual (€400/mes ahorro laboral) + aprox 3% mejora márgenes ventas herrajes + reducción errores facturación."
       },
       dependencias: [],
@@ -346,8 +346,8 @@ const area1: Area = {
         moneda: "EUR"
       },
       roi: {
-        minimo: 250,
-        maximo: 350,
+        minimo: 375,
+        maximo: 932,
         justificacion: "Eliminación 12h/mes gestión manual email (€500/mes) + 3% ahorro compras volumen."
       },
       dependencias: ["ALM-6", "ALM-7", "ORG-6"],
@@ -390,8 +390,8 @@ const area1: Area = {
         moneda: "EUR"
       },
       roi: {
-        minimo: 200,
-        maximo: 400,
+        minimo: 187,
+        maximo: 547,
         justificacion: "Reducción de costos ocultos de no calidad, mejora en la calidad final y satisfacción cliente. Visibilidad sobre mermas permite acciones correctivas que pueden ahorrar 2-4% en costes de producción."
       },
       dependencias: ["ALM-6", "ORG-7"],
@@ -449,8 +449,8 @@ const area2: Area = {
         moneda: "EUR"
       },
       roi: {
-        minimo: 180,
-        maximo: 450,
+        minimo: 752,
+        maximo: 4680,
         justificacion: "Reducción del stock de seguridad innecesario (~10-15% del valor de inventario). Eliminación de roturas de stock y urgencias (~€500-1.500/mes). Ahorro en tiempo de comprobaciones físicas (~10h/semana)."
       },
       dependencias: ["ORG-1"],
@@ -487,8 +487,8 @@ const area2: Area = {
         moneda: "EUR"
       },
       roi: {
-        minimo: 120,
-        maximo: 320,
+        minimo: 324,
+        maximo: 1334,
         justificacion: "Ahorro de ~8-12h/semana en gestión manual de pedidos entre sedes. Reducción de errores en pedidos internos (~€300-600/mes). Mejor trazabilidad reduce pérdidas y reclamaciones internas."
       },
       dependencias: ["ALM-1"],
@@ -525,9 +525,9 @@ const area2: Area = {
         moneda: "EUR"
       },
       roi: {
-        minimo: 100,
-        maximo: 280,
-        justificacion: "Reducción del tiempo de preparación de pedidos (~20-30%). Cualquier operario puede localizar material sin depender de expertos. Menos errores de picking (~€200-500/mes en devoluciones/correcciones)."
+        minimo: 159,
+        maximo: 669,
+        justificacion: "Reducción 20-30% tiempo picking (6.720-10.080€/año). Errores picking evitados (2.400-6.000€/año). Mejora inventarios cíclicos +15-25% eficiencia (2.000-4.000€/año). Ahorro anual total: 11.120-20.080€."
       },
       dependencias: ["ALM-1"],
       tags: ["ubicaciones", "etiquetado", "almacén"]
@@ -563,8 +563,8 @@ const area2: Area = {
         moneda: "EUR"
       },
       roi: {
-        minimo: 150,
-        maximo: 380,
+        minimo: 387,
+        maximo: 1760,
         justificacion: "Reducción drástica de llamadas internas (~60-80%, estimado 200+ llamadas/mes). Ahorro de ~15-20h/semana en interrupciones. Personal puede consultar estados sin depender de otros, mejorando productividad general."
       },
       dependencias: ["ALM-1", "ALM-2"],
@@ -601,8 +601,8 @@ const area2: Area = {
         moneda: "EUR"
       },
       roi: {
-        minimo: 90,
-        maximo: 220,
+        minimo: 140,
+        maximo: 1500,
         justificacion: "Visibilidad sobre problemas permite actuar antes de perder clientes. Mejora del nivel de servicio retiene clientes (~€5.000-15.000/cliente/año). Datos objetivos para negociar con proveedores de transporte."
       },
       dependencias: ["ALM-1", "ALM-2"],
@@ -643,8 +643,8 @@ const area2: Area = {
         moneda: "EUR"
       },
       roi: {
-        minimo: 700,
-        maximo: 1000,
+        minimo: 366,
+        maximo: 1225,
         justificacion: "El ahorro en mermas, optimización de recursos y mejor planificación producen un retorno rápido, con beneficios operativos y financieros sostenibles en el tiempo. Implementar controles digitales reduce la investigación manual y evita pérdidas costosas."
       },
       dependencias: ["ALM-5", "ORG-7", "PRO-3", "ORG-8"],
@@ -685,8 +685,8 @@ const area2: Area = {
         moneda: "EUR"
       },
       roi: {
-        minimo: 400,
-        maximo: 1000,
+        minimo: 397,
+        maximo: 1940,
         justificacion: "Compras de emergencia representan un sobrecoste del 10-20% sobre precio normal. El stock de seguridad excesivo inmoviliza capital. Las alertas automáticas eliminan el 99% de compras reactivas y optimizan el inventario en 1 ciclo."
       },
       dependencias: ["ALM-6", "ORG-7", "ALM-4", "PRO-6"],
@@ -748,8 +748,8 @@ const area3: Area = {
         moneda: "EUR"
       },
       roi: {
-        minimo: 350,
-        maximo: 700,
+        minimo: 209,
+        maximo: 768,
         justificacion: "600h/año liberadas para análisis financiero vs. tareas administrativas. Errores de codificación pueden generar discrepancias inventario/coste que se corrigen automáticamente. Cierres anticipados mejoran la tesorería."
       },
       dependencias: ["ORG-7", "ALM-6", "ORG-6"],
@@ -786,9 +786,9 @@ const area3: Area = {
         moneda: "EUR"
       },
       roi: {
-        minimo: 150,
-        maximo: 400,
-        justificacion: "La conciliación automática reduce el tiempo de ~20h/mes a ~3-4h/mes. Menos errores de aplicación de cobros (~€300-600/mes en incidencias). Personal administrativo liberado para tareas de mayor valor."
+        minimo: 68,
+        maximo: 566,
+        justificacion: "Reducción 70-80% tiempo conciliación (4.800-6.120€/año). Eliminación errores aplicación cobros y costes financieros (3.600-7.200€/año). Ahorro anual total: 8.400-13.320€."
       },
       dependencias: ["ADM-1"],
       tags: ["conciliación", "banca", "automatización"]
@@ -824,9 +824,9 @@ const area3: Area = {
         moneda: "EUR"
       },
       roi: {
-        minimo: 120,
-        maximo: 300,
-        justificacion: "OCR reduce tiempo de entrada de facturas de proveedores ~70-80% (~15-25h/mes). Menor tasa de errores de transcripción. Búsqueda de documentos instantánea vs. archivos físicos (~5h/mes ahorradas)."
+        minimo: 150,
+        maximo: 500,
+        justificacion: "Reducción 70-80% tiempo procesamiento facturas (25h/mes liberadas = 9.000€/año). Búsqueda instantánea documentos (5h/mes = 1.800€/año). Eliminación costes archivo físico y logística entre sedes (1.200€/año). Ahorro anual total: 12.000-18.000€."
       },
       dependencias: ["ADM-1"],
       tags: ["ocr", "documentos", "automatización"]
@@ -862,8 +862,8 @@ const area3: Area = {
         moneda: "EUR"
       },
       roi: {
-        minimo: 80,
-        maximo: 220,
+        minimo: 47,
+        maximo: 492,
         justificacion: "Información financiera orientada a gestión permite identificar líneas/clientes no rentables (~1-2% de mejora de margen). Reducción de tiempo en preparar informes ad hoc (~8-10h/mes)."
       },
       dependencias: ["ORG-3", "ADM-1"],
@@ -900,8 +900,8 @@ const area3: Area = {
         moneda: "EUR"
       },
       roi: {
-        minimo: 200,
-        maximo: 500,
+        minimo: 566,
+        maximo: 3900,
         justificacion: "Detectar fugas de margen del 2-5% en líneas o clientes concretos representa €40.000-100.000/año en una empresa de este tamaño. Permite renegociar precios o eliminar productos/clientes no rentables."
       },
       dependencias: ["ADM-1", "ADM-4"],
@@ -959,8 +959,8 @@ const area4: Area = {
         moneda: "EUR"
       },
       roi: {
-        minimo: 150,
-        maximo: 400,
+        minimo: 175,
+        maximo: 1800,
         justificacion: "Un CRM evita perder oportunidades (~5-10% más conversión). Retener 2-3 clientes/año que se habrían perdido representa €15.000-50.000. Ahorro de tiempo comercial en buscar información (~5h/semana)."
       },
       dependencias: ["ORG-3"],
@@ -997,8 +997,8 @@ const area4: Area = {
         moneda: "EUR"
       },
       roi: {
-        minimo: 100,
-        maximo: 280,
+        minimo: 95,
+        maximo: 740,
         justificacion: "Gestión estructurada de incidencias reduce tiempo de resolución (~40%). Identificar causas raíz evita repetición (~€400-800/mes en costes de re-envíos, descuentos, etc.). Mejora satisfacción cliente."
       },
       dependencias: ["VEN-1"],
@@ -1035,8 +1035,8 @@ const area4: Area = {
         moneda: "EUR"
       },
       roi: {
-        minimo: 200,
-        maximo: 600,
+        minimo: 50,
+        maximo: 900,
         justificacion: "Captar un cliente nuevo cuesta 5-7x más que retener uno existente. Detectar y recuperar 3-5 clientes en riesgo/año representa €30.000-80.000 en facturación salvada. El coste de análisis es mínimo."
       },
       dependencias: ["ADM-5", "VEN-1"],
@@ -1073,8 +1073,8 @@ const area4: Area = {
         moneda: "EUR"
       },
       roi: {
-        minimo: 80,
-        maximo: 200,
+        minimo: 150,
+        maximo: 950,
         justificacion: "Centralizar comunicaciones reduce tiempo de respuesta (~50%), mejorando satisfacción. Evita pérdida de pedidos por mensajes no atendidos (~€500-1.500/mes). Libera tiempo comercial para vender, no para buscar información."
       },
       dependencias: [],
@@ -1112,8 +1112,8 @@ const area4: Area = {
       },
       roi: {
         minimo: 120,
-        maximo: 320,
-        justificacion: "Evitar compromisos de plazo imposibles reduce tensiones y horas extra (~€800-1.500/mes). Menos incumplimientos mejora satisfacción cliente y reduce penalizaciones/descuentos (~€300-600/mes)."
+        maximo: 908,
+        justificacion: "Reducción horas extra y urgencias por compromisos imposibles (9.600-18.000€/año). Eliminación penalizaciones y descuentos por incumplimientos (3.600-7.200€/año). Ahorro anual total: 13.200-25.200€."
       },
       dependencias: ["PRO-1"],
       tags: ["planificación", "comercial", "capacidad"]
@@ -1170,9 +1170,9 @@ const area5: Area = {
         moneda: "EUR"
       },
       roi: {
-        minimo: 180,
-        maximo: 500,
-        justificacion: "Planificación formal reduce tiempos muertos de máquina (~10-15%), horas extra por urgencias (~€1.500-3.000/mes) y mejora OEE general. En producción de extrusión, 1% de mejora de eficiencia puede representar €20.000-40.000/año."
+        minimo: 216,
+        maximo: 1420,
+        justificacion: "Mejora eficiencia 10-15% (1% = 20.000-40.000€/año en extrusión). Reducción horas extra y urgencias (18.000-36.000€/año). Ahorro anual total: 38.000-76.000€."
       },
       dependencias: ["ALM-1"],
       tags: ["planificación", "producción", "mrp"]
@@ -1208,8 +1208,8 @@ const area5: Area = {
         moneda: "EUR"
       },
       roi: {
-        minimo: 150,
-        maximo: 400,
+        minimo: 185,
+        maximo: 1316,
         justificacion: "Datos útiles permiten identificar cuellos de botella y pérdidas ocultas. Eliminar capturas innecesarias ahorra ~5-8h/semana. Indicadores claros motivan mejoras que pueden representar 2-3% de productividad (~€15.000-30.000/año)."
       },
       dependencias: ["ORG-3"],
@@ -1246,8 +1246,8 @@ const area5: Area = {
         moneda: "EUR"
       },
       roi: {
-        minimo: 250,
-        maximo: 800,
+        minimo: 257,
+        maximo: 2566,
         justificacion: "El desperdicio en extrusión puede representar 3-8% del aluminio procesado. Controlarlo y reducirlo un 1-2% en una planta que procesa 500-1.000 toneladas/año representa €25.000-80.000/año de ahorro directo en materia prima."
       },
       dependencias: ["PRO-2"],
@@ -1284,8 +1284,8 @@ const area5: Area = {
         moneda: "EUR"
       },
       roi: {
-        minimo: 120,
-        maximo: 350,
+        minimo: 116,
+        maximo: 770,
         justificacion: "Trazabilidad completa reduce tiempo de consultas (~10-15h/semana). Clientes pueden ser informados sin llamadas internas. Menos errores de expedición (~€400-800/mes). Mejor imagen ante clientes exigentes."
       },
       dependencias: ["ALM-2", "ALM-4", "PRO-1"],
@@ -1322,8 +1322,8 @@ const area5: Area = {
         moneda: "EUR"
       },
       roi: {
-        minimo: 130,
-        maximo: 350,
+        minimo: 171,
+        maximo: 1200,
         justificacion: "Reducir dependencia del regulador disminuye riesgo operativo (€15.000-25.000 si hay baja prolongada). Herramientas visuales reducen llamadas (~50-70%) y permiten delegar decisiones. Reglas claras reducen conflictos."
       },
       dependencias: ["PRO-1", "ALM-4"],
@@ -1363,8 +1363,8 @@ const area5: Area = {
         moneda: "EUR"
       },
       roi: {
-        minimo: 250,
-        maximo: 500,
+        minimo: 205,
+        maximo: 471,
         justificacion: "Reducción de paros y re-trabajos por errores de material: ahorro estimado de 10h/mes de prensa y acabados. Disminución de descuadres de stock y correcciones manuales: 12h/mes de regulador y administración. Mejora en aprovechamiento de material (mermas visibles y acotadas)."
       },
       dependencias: ["ALM-4", "ALM-6", "ORG-8", "PRO-3"],
@@ -1387,8 +1387,8 @@ const area6: Area = {
     numProblemas: 6,
     inversionMin: 16000,
     inversionMax: 36000,
-    ahorroMin: 55000,
-    ahorroMax: 170000
+    ahorroMin: 47000,
+    ahorroMax: 175000
   },
   problemas: [
     {
@@ -1422,8 +1422,8 @@ const area6: Area = {
         moneda: "EUR"
       },
       roi: {
-        minimo: 150,
-        maximo: 400,
+        minimo: 200,
+        maximo: 1650,
         justificacion: "Metodología de ROI evita inversiones fallidas (~€10.000-30.000/año en proyectos que no aportan). Permite priorizar inversiones con mayor retorno. Facilita comunicación con propiedad y justificación de gastos."
       },
       dependencias: ["ORG-3"],
@@ -1460,9 +1460,9 @@ const area6: Area = {
         moneda: "EUR"
       },
       roi: {
-        minimo: 120,
-        maximo: 350,
-        justificacion: "Una hoja de ruta clara evita cambios de rumbo costosos (~€5.000-15.000/año). Permite negociar mejor con proveedores tecnológicos. Reduce ansiedad organizacional y mejora adopción de cambios."
+        minimo: 0,
+        maximo: 633,
+        justificacion: "Evitación proyectos fallidos y cambios de rumbo (5.000-15.000€/año). Optimización contratos y licencias tecnológicas (3.000-7.000€/año). Ahorro anual total: 8.000-22.000€. Escenario mínimo = punto equilibrio año 1."
       },
       dependencias: ["DIR-1", "ORG-1"],
       tags: ["roadmap", "tecnología", "priorización"]
@@ -1499,8 +1499,8 @@ const area6: Area = {
       },
       roi: {
         minimo: 100,
-        maximo: 280,
-        justificacion: "Proyectos bien gestionados terminan en plazo y presupuesto (~30% menos desviaciones). Evita proyectos zombi que consumen recursos sin cerrar. Lecciones aprendidas mejoran proyectos futuros."
+        maximo: 900,
+        justificacion: "Eliminación proyectos zombis e improductivos (5.000-10.000€/año en horas redirigidas). Reducción costes oportunidad por cumplimiento plazos (5.000-10.000€/año). Ahorro anual total: 10.000-20.000€."
       },
       dependencias: ["DIR-1", "DIR-2"],
       tags: ["proyectos", "gobernanza", "mejora continua"]
@@ -1536,8 +1536,8 @@ const area6: Area = {
         moneda: "EUR"
       },
       roi: {
-        minimo: 120,
-        maximo: 320,
+        minimo: 233,
+        maximo: 1900,
         justificacion: "Reducir dependencia de personas clave mitiga riesgo operativo (coste potencial de baja prolongada: €20.000-50.000). Backups formados permiten vacaciones sin estrés. Conocimiento distribuido acelera resolución de problemas."
       },
       dependencias: ["ORG-2"],
@@ -1574,8 +1574,8 @@ const area6: Area = {
         moneda: "EUR"
       },
       roi: {
-        minimo: 80,
-        maximo: 200,
+        minimo: 25,
+        maximo: 566,
         justificacion: "Gestión del cambio bien hecha aumenta adopción de mejoras (~50% más éxito en proyectos). Reduce resistencias que alargan implantaciones. Mejora clima laboral y retención de talento (~€5.000-10.000/año en rotación evitada)."
       },
       dependencias: ["DIR-2", "ORG-4"],
@@ -1616,9 +1616,9 @@ const area6: Area = {
         moneda: "EUR"
       },
       roi: {
-        minimo: 300,
-        maximo: 500,
-        justificacion: "Tiempo de dirección liberado, mejora en el establecimiento de precios y en márgenes, reducción de mermas y de stock inmovilizado."
+        minimo: 112,
+        maximo: 640,
+        justificacion: "Ahorro tiempo propiedad: 10-15h/mes liberadas (7.000-12.000€/año). Mejora margen comercial 0,5% + reducción stock inmovilizado: 10.000-25.000€/año. Beneficio económico anual total: 17.000-37.000€. Payback escenario mínimo: 5,6 meses. Payback escenario máximo: 1,6 meses."
       },
       dependencias: ["ALM-4", "PRO-6", "ORG-8"],
       tags: ["dashboards", "KPIs", "dirección", "LIBRA"]
